@@ -21,7 +21,8 @@ def main():
     for lid in ids:
         cache = RAW / "livestats" / f"{lid}.json.gz"
         existed = cache.exists()
-        if fetch(LIVESTATS.format(lid), cache) is None:
+        # 403 = záznam zápasu je u Genius Sports zablokovaný, přeskakujeme
+        if fetch(LIVESTATS.format(lid), cache, skip_statuses=(403, 404)) is None:
             missing += 1
         done += 1
         if not existed and done % 200 == 0:

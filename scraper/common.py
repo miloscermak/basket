@@ -22,8 +22,9 @@ _session.headers["User-Agent"] = (
 _last_request = 0.0
 
 
-def fetch(url: str, cache_file: Path, *, force: bool = False) -> bytes | None:
-    """Stáhne URL s rate limitem a uloží gzipnutou cache. Vrací obsah, None při 404."""
+def fetch(url: str, cache_file: Path, *, force: bool = False,
+          skip_statuses: tuple = (404,)) -> bytes | None:
+    """Stáhne URL s rate limitem a uloží gzipnutou cache. Vrací obsah, None při skip_statuses."""
     global _last_request
     if cache_file.exists() and not force:
         return gzip.decompress(cache_file.read_bytes())
@@ -39,7 +40,7 @@ def fetch(url: str, cache_file: Path, *, force: bool = False) -> bytes | None:
             print(f"  ! {url}: {e}, pokus {attempt + 1}")
             time.sleep(2**attempt)
             continue
-        if resp.status_code == 404:
+        if resp.status_code in skip_statuses:
             return None
         if resp.status_code != 200:
             print(f"  ! {url}: HTTP {resp.status_code}, pokus {attempt + 1}")
