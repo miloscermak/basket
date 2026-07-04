@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Česká basketbalová sezóna 2025/26 v datech</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-kicker">Od NBL po minižáky · sezóna 2025/26</p>
+  <h1>Jak se v Česku hrál basketbal</h1>
+  <p class="hero-sub">Kompletní datový obraz jedné sezóny: každý zápas, každý koš,
+     od profesionálů po nejmenší děti a nejnižší soutěže.</p>
+  <div class="bignums" id="bignums"></div>
+</header>
+
+<main>
+
+<section id="kategorie">
+  <h2>Kdo hraje český basketbal</h2>
+  <p class="section-note">Zápasy sezóny podle kategorií. Většinu českého basketbalu
+     odehrají děti a mládež.</p>
+  <div class="split">
+    <div id="cat-bars" class="card"></div>
+    <div id="youth-bars" class="card"></div>
+  </div>
+</section>
+
+<section id="rytmus">
+  <h2>Kdy se hraje</h2>
+  <p class="section-note">Každý bod v heatmapě je počet zápasů v daný den a hodinu
+     za celou sezónu. Basketbalové Česko žije o víkendových dopoledních.</p>
+  <div class="card" id="heatmap"></div>
+  <div class="card" id="weeks"></div>
+</section>
+
+<section id="domaci">
+  <h2>Domácí výhoda</h2>
+  <p class="section-note">Podíl výher domácích v dospělých soutěžích podle úrovně.</p>
+  <div class="card" id="homeadv"></div>
+</section>
+
+<section id="kuriozity">
+  <h2>Zápasy, o kterých se vypráví</h2>
+  <div class="cards3" id="curio-cards"></div>
+  <div class="split">
+    <div class="card"><h3>Největší obraty</h3><p class="table-note">Tým vedl o tolik bodů — a stejně prohrál.</p><div id="tbl-obraty"></div></div>
+    <div class="card"><h3>Nejdelší šňůry výher</h3><div id="tbl-snury"></div></div>
+  </div>
+</section>
+
+<section id="lide">
+  <h2>Lidé sezóny</h2>
+  <div class="split">
+    <div class="card"><h3>Nejvyšší bodové výkony</h3><p class="table-note">Jen zápasy s kompletním zápisem.</p><div id="tbl-vykony"></div></div>
+    <div class="card"><h3>Nejvíc trojek v zápase</h3><div id="tbl-trojky"></div></div>
+  </div>
+  <div class="split">
+    <div class="card"><h3>Nejstarší aktivní hráči a hráčky</h3><div id="tbl-nejstarsi"></div></div>
+    <div class="card"><h3>Železní muži a ženy</h3><p class="table-note">Nejvíc odehraných zápasů napříč soutěžemi.</p><div id="tbl-zelezni"></div></div>
+  </div>
+  <div class="split">
+    <div class="card"><h3>Králové smečí</h3><p class="table-note">Jen soutěže s podrobným online zápisem.</p><div id="tbl-smece"></div></div>
+    <div class="card"><h3>Nejvytíženější rozhodčí</h3><div id="tbl-rozhodci"></div></div>
+  </div>
+</section>
+
+<section id="prostredi">
+  <h2>Haly a diváci</h2>
+  <div class="split">
+    <div class="card"><h3>Nejrušnější haly</h3><div id="tbl-haly"></div></div>
+    <div class="card"><h3>Největší návštěvy</h3><div id="tbl-navstevnost"></div></div>
+  </div>
+</section>
+
+<section id="federace" class="pending">
+  <h2>Připraveno na data od federace</h2>
+  <p class="section-note">Tyhle kapitoly čekají na podklady z ČBF — jakmile dorazí,
+     web je zobrazí.</p>
+  <div class="cards3">
+    <div class="card ghost"><h3>Demografie</h3><p>Registrovaní hráči podle věku, pohlaví a kraje. Kde basketbal roste a kde mizí.</p></div>
+    <div class="card ghost"><h3>Přestupy</h3><p>Mapa basketbalové migrace: jak se hráči stěhují mezi kluby a kraji.</p></div>
+    <div class="card ghost"><h3>Rozhodčí</h3><p>Kolik jich je, jak stárnou a kdo píská nejvíc.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Zdroj dat: cz.basketball a FIBA LiveStats (Genius Sports), sezóna 2025/26.
+     Individuální statistiky jen ze zápasů s kompletním elektronickým zápisem.</p>
+  <p id="generated"></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -14,6 +14,19 @@ SEASON = "2025/26"
 YEAR = 2025
 AREAS = list(range(15))  # 0 = celá ČR, ostatní oblasti; neexistující vrátí prázdno
 
+# Profi ligy nejsou v indexu /soutez (žijí na nbl.basketball / zbl.basketball),
+# ale jejich stránky na cz.basketball fungují — přidáváme je ručně.
+EXTRA_GROUPS = {
+    # Maxa NBL 2025/26
+    9361: (5015, "Základní část"), 9362: (5015, "Nadstavba A1"),
+    9363: (5015, "Nadstavba A2"), 9365: (5015, "Předkolo play-off"),
+    9366: (5015, "Play-off"), 9367: (5015, "Baráž o NBL"),
+    # Chance ŽBL 2025/26
+    9600: (5033, "Základní část"), 9856: (5033, "Skupina A1"),
+    9857: (5033, "Skupina A2"), 9921: (5033, "Play-off"),
+    9931: (5033, "Play-out"),
+}
+
 DATE_RE = re.compile(r"(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})")
 
 
@@ -122,6 +135,8 @@ def main():
                 pairs[gid] = (sid, txt, area)
                 n += 1
         print(f"area {area}: +{n} skupin", flush=True)
+    for gid, (sid, gname) in EXTRA_GROUPS.items():
+        pairs.setdefault(gid, (sid, gname, 0))
     print(f"celkem skupin: {len(pairs)}", flush=True)
 
     # 2) stáhnout stránku každé skupiny a vytěžit zápasy

@@ -28,7 +28,7 @@ def youth_age(db_category):
 
 
 def main():
-    con = sqlite3.connect(ROOT / "data" / "basket.sqlite")
+    con = sqlite3.connect(ROOT / "data" / "basket.sqlite", timeout=60)
     con.row_factory = sqlite3.Row
     played = "home_score IS NOT NULL"
 
@@ -111,6 +111,26 @@ def main():
     ]
     o["nejtesnejsich_o1"] = con.execute(
         f"SELECT COUNT(*) FROM matches WHERE {played} AND ABS(home_score-away_score)=1").fetchone()[0]
+
+    # domácí výhoda podle úrovně (dospělí) — čím níž, tím větší?
+    lvl_case = """
+        CASE
+            WHEN c.name LIKE '%NBL%' OR c.name LIKE '%ŽBL%' THEN 'profi (NBL/ŽBL)'
+            WHEN c.name LIKE '1. liga%' THEN '1. liga'
+            WHEN c.name LIKE '2. liga%' THEN '2. liga'
+            WHEN c.area > 0 THEN 'kraj/oblast'
+            ELSE 'ostatní'
+        END"""
+    o["domaci_vyhoda_urovne"] = [
+        dict(row)
+        for row in con.execute(f"""
+            SELECT {lvl_case} uroven, COUNT(*) zapasu,
+                   ROUND(SUM(m.home_score>m.away_score)*100.0/COUNT(*),1) domaci_pct
+            FROM matches m JOIN groups g ON m.group_id=g.id
+            JOIN competitions c ON g.competition_id=c.id
+            WHERE {played} AND LOWER(c.category) IN ('muži','ženy')
+            GROUP BY uroven HAVING zapasu>100 ORDER BY domaci_pct DESC""")
+    ]
 
     # nejvytíženější rozhodčí
     refs = Counter()
