@@ -11,7 +11,10 @@ from common import RAW
 
 def main():
     con = db.connect()
-    con.execute("ALTER TABLE competitions ADD COLUMN category TEXT")
+    try:
+        con.execute("ALTER TABLE competitions ADD COLUMN category TEXT")
+    except Exception:
+        pass  # sloupec už existuje
     mapping = {}
     for f in sorted((RAW / "index").glob("area_*.html.gz")):
         html = gzip.decompress(f.read_bytes()).decode("utf-8", errors="replace")

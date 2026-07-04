@@ -149,7 +149,9 @@ def main():
         h1 = soup.find("h1")
         comp_name = h1.get_text(" ", strip=True) if h1 else None
         con.execute(
-            "INSERT OR REPLACE INTO competitions (id, name, area, season) VALUES (?,?,?,?)",
+            """INSERT INTO competitions (id, name, area, season) VALUES (?,?,?,?)
+               ON CONFLICT(id) DO UPDATE SET name=excluded.name, area=excluded.area,
+                   season=excluded.season""",  # category zůstává
             (sid, comp_name, area, SEASON),
         )
         con.execute(
