@@ -17,6 +17,7 @@ async function main() {
   homeAdvantage(o);
   curiosities(o, r);
   tables(o, r);
+  careers();
   $("generated").textContent = "Vygenerováno " + new Date().toLocaleDateString("cs-CZ");
 }
 
@@ -197,6 +198,43 @@ function tables(o, r) {
     r.navstevnost_top.map((x) => [
       tdn(fmt.format(x.divaku)),
       td(`${x.domaci} – ${x.hoste} ${x.home_score}:${x.away_score}` + sub(`${x.soutez} · ${x.datum}`)),
+    ])
+  );
+}
+
+// Kariérní data jsou volitelná — sekce se ukáže, až careers.json existuje.
+async function careers() {
+  let c;
+  try {
+    c = await fetch("data/careers.json").then((x) => (x.ok ? x.json() : null));
+  } catch {
+    return;
+  }
+  if (!c) return;
+  document.getElementById("kariery").hidden = false;
+
+  $("tbl-kariery").innerHTML = table(
+    ["Sezón", "Hráč/ka"],
+    c.nejdelsi_kariery.slice(0, 10).map((x) => [
+      tdn(x.sezon),
+      td(`${x.jmeno}` + sub(`od ${x.prvni} · ${fmt.format(x.zapasu)} zápasů`)),
+    ])
+  );
+
+  $("tbl-historie").innerHTML = table(
+    ["Zápasů", "Hráč/ka"],
+    c.nejvic_zapasu_historie.slice(0, 10).map((x) => [
+      tdn(fmt.format(x.zapasu)),
+      td(`${x.jmeno}${x.aktivni ? "" : " (už nehraje)"}` + sub(`${x.prvni} – ${x.posledni} · ${x.sezon} sezón`)),
+    ])
+  );
+
+  $("tbl-rekordy").innerHTML = table(
+    ["Bodů", "Hráč/ka", "Kdy"],
+    c.rekordy_letos.map((x) => [
+      tdn(x.hodnota),
+      td(`${x.jmeno}` + sub(`${x.sezon} sezón v evidenci`)),
+      td(x.datum ?? ""),
     ])
   );
 }
