@@ -1,0 +1,314 @@
+{
+ "nejdelsi_kariery": [
+  {
+   "jmeno": "Jakub Velenský",
+   "prvni": "1998/99",
+   "sezon": 26,
+   "zapasu": 609
+  },
+  {
+   "jmeno": "Daniel Dvořák",
+   "prvni": "1998/99",
+   "sezon": 26,
+   "zapasu": 719
+  },
+  {
+   "jmeno": "Michala Hartigová",
+   "prvni": "1999/00",
+   "sezon": 26,
+   "zapasu": 648
+  },
+  {
+   "jmeno": "Michal Šušák",
+   "prvni": "1999/00",
+   "sezon": 25,
+   "zapasu": 561
+  },
+  {
+   "jmeno": "Luboš Stria",
+   "prvni": "2000/01",
+   "sezon": 25,
+   "zapasu": 699
+  },
+  {
+   "jmeno": "Petra Pospíšilová",
+   "prvni": "2002/03",
+   "sezon": 24,
+   "zapasu": 587
+  },
+  {
+   "jmeno": "Pavel Slezák",
+   "prvni": "2002/03",
+   "sezon": 24,
+   "zapasu": 902
+  },
+  {
+   "jmeno": "Vojtěch Synáček",
+   "prvni": "1998/99",
+   "sezon": 23,
+   "zapasu": 427
+  },
+  {
+   "jmeno": "Darina Jettmarová",
+   "prvni": "2000/01",
+   "sezon": 23,
+   "zapasu": 570
+  },
+  {
+   "jmeno": "Luděk Jurečka",
+   "prvni": "2002/03",
+   "sezon": 23,
+   "zapasu": 842
+  },
+  {
+   "jmeno": "Robert Landa",
+   "prvni": "2002/03",
+   "sezon": 23,
+   "zapasu": 699
+  },
+  {
+   "jmeno": "Jakub Houška",
+   "prvni": "2003/04",
+   "sezon": 23,
+   "zapasu": 667
+  },
+  {
+   "jmeno": "Lucie Husáková",
+   "prvni": "1998/99",
+   "sezon": 22,
+   "zapasu": 421
+  },
+  {
+   "jmeno": "Stanislav Votroubek",
+   "prvni": "1999/00",
+   "sezon": 22,
+   "zapasu": 649
+  },
+  {
+   "jmeno": "Jakub Blažek",
+   "prvni": "2000/01",
+   "sezon": 22,
+   "zapasu": 686
+  }
+ ],
+ "nejvic_zapasu_historie": [
+  {
+   "jmeno": "Pavel Slezák",
+   "zapasu": 902,
+   "sezon": 24,
+   "prvni": "2002/03",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Luděk Jurečka",
+   "zapasu": 842,
+   "sezon": 23,
+   "prvni": "2002/03",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Filip Kroutil",
+   "zapasu": 824,
+   "sezon": 16,
+   "prvni": "2010/11",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Roman Marko",
+   "zapasu": 799,
+   "sezon": 20,
+   "prvni": "2005/06",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Jakub Šiřina",
+   "zapasu": 796,
+   "sezon": 20,
+   "prvni": "2006/07",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Viktor Půlpán",
+   "zapasu": 787,
+   "sezon": 16,
+   "prvni": "2010/11",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Tomáš Pomikálek",
+   "zapasu": 769,
+   "sezon": 20,
+   "prvni": "2006/07",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Jan Štěrba",
+   "zapasu": 763,
+   "sezon": 16,
+   "prvni": "2010/11",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Ondřej Peterka",
+   "zapasu": 761,
+   "sezon": 18,
+   "prvni": "2008/09",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Tomáš Vyoral",
+   "zapasu": 756,
+   "sezon": 18,
+   "prvni": "2008/09",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Filip Novotný",
+   "zapasu": 754,
+   "sezon": 16,
+   "prvni": "2010/11",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Jakub Tůma",
+   "zapasu": 754,
+   "sezon": 16,
+   "prvni": "2010/11",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Ladislav Pecka",
+   "zapasu": 750,
+   "sezon": 17,
+   "prvni": "2008/09",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Aneta Finková",
+   "zapasu": 747,
+   "sezon": 15,
+   "prvni": "2011/12",
+   "posledni": "2025/26",
+   "aktivni": 1
+  },
+  {
+   "jmeno": "Martin Kříž",
+   "zapasu": 741,
+   "sezon": 18,
+   "prvni": "2008/09",
+   "posledni": "2025/26",
+   "aktivni": 1
+  }
+ ],
+ "rekordy_letos": [
+  {
+   "jmeno": "David Rojko",
+   "stat": "Body",
+   "hodnota": 29.0,
+   "datum": "2026-01-21",
+   "vek": 61,
+   "sezon": 6
+  },
+  {
+   "jmeno": "Tomáš Písečný",
+   "stat": "Body",
+   "hodnota": 24.0,
+   "datum": "2025-10-14",
+   "vek": 47,
+   "sezon": 9
+  },
+  {
+   "jmeno": "Petr Janeček",
+   "stat": "Body",
+   "hodnota": 25.0,
+   "datum": "2025-10-16",
+   "vek": 47,
+   "sezon": 3
+  },
+  {
+   "jmeno": "Zdeněk Wiesner",
+   "stat": "Body",
+   "hodnota": 37.0,
+   "datum": "2025-10-18",
+   "vek": 47,
+   "sezon": 16
+  },
+  {
+   "jmeno": "Martin Zdražil",
+   "stat": "Body",
+   "hodnota": 29.0,
+   "datum": "2026-04-29",
+   "vek": 47,
+   "sezon": 4
+  },
+  {
+   "jmeno": "Martin Křídlo",
+   "stat": "Body",
+   "hodnota": 31.0,
+   "datum": "2026-02-18",
+   "vek": 46,
+   "sezon": 6
+  },
+  {
+   "jmeno": "Hana Šnajdrová",
+   "stat": "Body",
+   "hodnota": 34.0,
+   "datum": "2025-11-02",
+   "vek": 46,
+   "sezon": 11
+  },
+  {
+   "jmeno": "Petr Jelínek",
+   "stat": "Body",
+   "hodnota": 27.0,
+   "datum": "2026-03-13",
+   "vek": 45,
+   "sezon": 14
+  },
+  {
+   "jmeno": "Vladimir Paunović",
+   "stat": "Body",
+   "hodnota": 44.0,
+   "datum": "2026-02-25",
+   "vek": 44,
+   "sezon": 9
+  },
+  {
+   "jmeno": "Hana Krátošková",
+   "stat": "Body",
+   "hodnota": 19.0,
+   "datum": "2026-03-19",
+   "vek": 43,
+   "sezon": 15
+  },
+  {
+   "jmeno": "Milan Valenta",
+   "stat": "Body",
+   "hodnota": 31.0,
+   "datum": "2025-11-17",
+   "vek": 43,
+   "sezon": 6
+  },
+  {
+   "jmeno": "Irena Dudová",
+   "stat": "Body",
+   "hodnota": 27.0,
+   "datum": "2025-10-20",
+   "vek": 43,
+   "sezon": 21
+  }
+ ]
+}

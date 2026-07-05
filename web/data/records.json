@@ -1,0 +1,953 @@
+{
+ "top_vykony": [
+  {
+   "jmeno": "Antonín Berka",
+   "bodu": 92,
+   "datum": "2026-03-21",
+   "domaci": "SBŠ Třinec",
+   "hoste": "BC Nový Jičín",
+   "soutez": "Oblastní přebor starších minižáků U13",
+   "kategorie": "U13"
+  },
+  {
+   "jmeno": "Adam Stoev",
+   "bodu": 90,
+   "datum": "2026-03-21",
+   "domaci": "SBŠ Třinec",
+   "hoste": "BC Nový Jičín",
+   "soutez": "Oblastní přebor starších minižáků U13",
+   "kategorie": "U13"
+  },
+  {
+   "jmeno": "Tadeáš Pavelka",
+   "bodu": 82,
+   "datum": "2025-11-09",
+   "domaci": "Basket Valmez MIX*+3x15",
+   "hoste": "SK UP BCM Olomouc  - Bílá",
+   "soutez": "Středomoravský přebor U10M+Ž",
+   "kategorie": "U10"
+  },
+  {
+   "jmeno": "Antonín Kadlčík",
+   "bodu": 70,
+   "datum": "2026-03-07",
+   "domaci": "Basket Valmez",
+   "hoste": "SK UP BCM Olomouc B",
+   "soutez": "Nadregionální liga U15M",
+   "kategorie": "U15"
+  },
+  {
+   "jmeno": "Theodor Štursa",
+   "bodu": 68,
+   "datum": "2025-12-06",
+   "domaci": "TJ Tuři Svitavy",
+   "hoste": "BK NAPOS Vysoká n.L.",
+   "soutez": "Smíšený východočeský přebor U13S VP II",
+   "kategorie": "U13"
+  },
+  {
+   "jmeno": "Theodor Štursa",
+   "bodu": 68,
+   "datum": "2025-12-06",
+   "domaci": "TJ Tuři Svitavy",
+   "hoste": "BK NAPOS Vysoká n.L.",
+   "soutez": "Smíšený východočeský přebor U13S VP II",
+   "kategorie": "U13"
+  },
+  {
+   "jmeno": "Martin Chromec",
+   "bodu": 66,
+   "datum": "2026-03-17",
+   "domaci": "TJ Thermia Karlovy Vary",
+   "hoste": "BK Sokolov",
+   "soutez": "Nadregionální liga U15M",
+   "kategorie": "U15"
+  },
+  {
+   "jmeno": "Vojtěch Chytra",
+   "bodu": 64,
+   "datum": "2025-12-20",
+   "domaci": "BA Lynx Liberecko B",
+   "hoste": "Loko Trutnov",
+   "soutez": "Nadregionální liga U15M",
+   "kategorie": "U15"
+  },
+  {
+   "jmeno": "Petr Žák",
+   "bodu": 61,
+   "datum": "2026-03-08",
+   "domaci": "BK Klatovy",
+   "hoste": "BA Grizzlies Karlovy Vary",
+   "soutez": "Nadregionální liga U19M",
+   "kategorie": "U19"
+  },
+  {
+   "jmeno": "Bruno Dorňák",
+   "bodu": 60,
+   "datum": "2025-11-09",
+   "domaci": "Basket Valmez MIX*+3x15",
+   "hoste": "SK UP BCM Olomouc  - Bílá",
+   "soutez": "Středomoravský přebor U10M+Ž",
+   "kategorie": "U10"
+  },
+  {
+   "jmeno": "Damian Filip",
+   "bodu": 58,
+   "datum": "2025-11-22",
+   "domaci": "Sokol Žižkov",
+   "hoste": "BK Kladno",
+   "soutez": "Žákovská liga U14M",
+   "kategorie": "U14"
+  },
+  {
+   "jmeno": "Hynek Štěpán",
+   "bodu": 58,
+   "datum": "2025-12-06",
+   "domaci": "TJ Thermia Karlovy Vary",
+   "hoste": "BA Grizzlies Plzeň",
+   "soutez": "Nadregionální liga U15M",
+   "kategorie": "U15"
+  },
+  {
+   "jmeno": "Marek Novák",
+   "bodu": 57,
+   "datum": "2025-11-15",
+   "domaci": "SŠB Pardubice",
+   "hoste": "SKB Česká Třebová",
+   "soutez": "Smíšený východočeský přebor U11S jih",
+   "kategorie": "U11"
+  },
+  {
+   "jmeno": "Ondřej Vyjídáček",
+   "bodu": 57,
+   "datum": "2025-10-26",
+   "domaci": "Draci Vysoké Mýto",
+   "hoste": "TJ Tuři Svitavy",
+   "soutez": "Nadregionální liga U15M",
+   "kategorie": "U15"
+  },
+  {
+   "jmeno": "Matěj Nádvorník",
+   "bodu": 57,
+   "datum": "2026-03-17",
+   "domaci": "TJ Thermia Karlovy Vary",
+   "hoste": "BK Sokolov",
+   "soutez": "Nadregionální liga U15M",
+   "kategorie": "U15"
+  }
+ ],
+ "trojky_zapas": [
+  {
+   "jmeno": "Ondřej Zajíček",
+   "trojek": 11,
+   "datum": "2025-10-23",
+   "domaci": "BA Sparta A",
+   "hoste": "Sokol Dolní Počernice A",
+   "soutez": "Přebor A"
+  },
+  {
+   "jmeno": "Jakub Velenský",
+   "trojek": 11,
+   "datum": "2025-10-16",
+   "domaci": "Sokol Dolní Počernice B",
+   "hoste": "BK Motol C",
+   "soutez": "1.třída"
+  },
+  {
+   "jmeno": "Jakub Velenský",
+   "trojek": 11,
+   "datum": "2026-03-02",
+   "domaci": "BK Motol C",
+   "hoste": "TJ Háje - JM B",
+   "soutez": "1.třída"
+  },
+  {
+   "jmeno": "Ankhmaa Tergel",
+   "trojek": 11,
+   "datum": "2025-12-04",
+   "domaci": "VSK Chemie",
+   "hoste": "PRABAS",
+   "soutez": "2.třída B"
+  },
+  {
+   "jmeno": "Vladimir Paunović",
+   "trojek": 11,
+   "datum": "2026-02-25",
+   "domaci": "Sokol Židlochovice",
+   "hoste": "Slovan Černá Pole B",
+   "soutez": "1. Brněnská liga"
+  },
+  {
+   "jmeno": "Jakub Skála",
+   "trojek": 10,
+   "datum": "2025-10-11",
+   "domaci": "BA Lynx Liberecko",
+   "hoste": "USK Slavia Liberec",
+   "soutez": "Severočeská liga mužů"
+  },
+  {
+   "jmeno": "Dominik Maščuch",
+   "trojek": 10,
+   "datum": "2025-12-12",
+   "domaci": "USK Slavia Liberec",
+   "hoste": "TJ Slovan Varnsdorf  A",
+   "soutez": "Severočeská liga mužů"
+  },
+  {
+   "jmeno": "Vojtěch Čermák",
+   "trojek": 10,
+   "datum": "2025-11-23",
+   "domaci": "BK Bizoni Náchod",
+   "hoste": "TJ Sokol Nová Paka",
+   "soutez": "Východočeská liga mužů"
+  },
+  {
+   "jmeno": "Jan Dolejší",
+   "trojek": 10,
+   "datum": "2026-02-01",
+   "domaci": "BK NAPOS Vysoká n.L. \"B\"",
+   "hoste": "BK Loko Trutnov",
+   "soutez": "Východočeská liga mužů"
+  },
+  {
+   "jmeno": "Vojtěch Bašta",
+   "trojek": 10,
+   "datum": "2025-11-09",
+   "domaci": "BK Kralupy-Junior muži",
+   "hoste": "BK  Český Brod",
+   "soutez": "Středočeská basketbalová liga mužů"
+  }
+ ],
+ "nejstarsi": [
+  {
+   "jmeno": "Anděla Burdová",
+   "vek": 70,
+   "tym": "S.H.Počernice B",
+   "zapasu": 5,
+   "souteze": "2.třída"
+  },
+  {
+   "jmeno": "Petr Janota",
+   "vek": 69,
+   "tym": "Fenix Modřany A",
+   "zapasu": 18,
+   "souteze": "2.třída A"
+  },
+  {
+   "jmeno": "Lukáš Klíma",
+   "vek": 66,
+   "tym": "BK Pirelli B",
+   "zapasu": 10,
+   "souteze": "3.třída A"
+  },
+  {
+   "jmeno": "Josef Skácel",
+   "vek": 62,
+   "tym": "Slovan Advokacie Praha",
+   "zapasu": 15,
+   "souteze": "2.třída C"
+  },
+  {
+   "jmeno": "Milan Kašpárek",
+   "vek": 62,
+   "tym": "Sokol Kbely E",
+   "zapasu": 20,
+   "souteze": "3.třída B"
+  },
+  {
+   "jmeno": "David Rojko",
+   "vek": 61,
+   "tym": "Sokol Kbely E",
+   "zapasu": 7,
+   "souteze": "3.třída B"
+  },
+  {
+   "jmeno": "Jiří Klimek",
+   "vek": 61,
+   "tym": "Jiskra Kyjov B",
+   "zapasu": 8,
+   "souteze": "2.Jihomoravská liga"
+  },
+  {
+   "jmeno": "Pavel Tomčo",
+   "vek": 61,
+   "tym": "Slovan Bohnice B",
+   "zapasu": 22,
+   "souteze": "2.třída A"
+  },
+  {
+   "jmeno": "Pavel Doležil",
+   "vek": 60,
+   "tym": "Sokol Kbely E",
+   "zapasu": 15,
+   "souteze": "3.třída B"
+  },
+  {
+   "jmeno": "Jitka Kykalová",
+   "vek": 60,
+   "tym": "BLC Sparta",
+   "zapasu": 15,
+   "souteze": "Přebor"
+  },
+  {
+   "jmeno": "Václav Hrubý",
+   "vek": 60,
+   "tym": "TJ Košíře B",
+   "zapasu": 9,
+   "souteze": "Přebor B"
+  },
+  {
+   "jmeno": "Ferdinand Tischlinger",
+   "vek": 59,
+   "tym": "Nový Jičín C",
+   "zapasu": 9,
+   "souteze": "Severomoravská liga mužů - 2.třída"
+  }
+ ],
+ "zelezni": [
+  {
+   "jmeno": "Teodor Malík",
+   "vek": 10,
+   "zapasu": 73,
+   "soutezi": 7,
+   "tymy": "Start Havířov"
+  },
+  {
+   "jmeno": "Tomáš Hejtmánek",
+   "vek": 17,
+   "zapasu": 72,
+   "soutezi": 6,
+   "tymy": "ADFORS Basket Litomy,ADFORS Basket Litomyšl,Litomyšl"
+  },
+  {
+   "jmeno": "Matěj Pokorný",
+   "vek": 18,
+   "zapasu": 72,
+   "soutezi": 4,
+   "tymy": "ADFORS Basket Litomy,SVI,ADFORS Basket Litomyšl"
+  },
+  {
+   "jmeno": "Marek Houška",
+   "vek": 17,
+   "zapasu": 70,
+   "soutezi": 5,
+   "tymy": "DEC,Válečníci Děčín"
+  },
+  {
+   "jmeno": "Michal Kubínek",
+   "vek": 19,
+   "zapasu": 69,
+   "soutezi": 4,
+   "tymy": "Slavoj BK Litoměřice,Slavoj BK Litoměřice B,Slavoj Litoměřice,BK Teplice"
+  },
+  {
+   "jmeno": "Vojtěch Vondra",
+   "vek": 12,
+   "zapasu": 65,
+   "soutezi": 5,
+   "tymy": "SŠB Pardubice,kval.,SŠB Pardubice-KVAL"
+  },
+  {
+   "jmeno": "Jiří Zenefels",
+   "vek": 11,
+   "zapasu": 65,
+   "soutezi": 4,
+   "tymy": "BK Jiskra Domažlice"
+  },
+  {
+   "jmeno": "Alexandr Krob",
+   "vek": 17,
+   "zapasu": 65,
+   "soutezi": 4,
+   "tymy": "DEC,Válečníci Děčín"
+  },
+  {
+   "jmeno": "Julie Brozová",
+   "vek": 12,
+   "zapasu": 64,
+   "soutezi": 3,
+   "tymy": "SŠB Pardubice \"B\",kval.,SŠB Pardubice"
+  },
+  {
+   "jmeno": "Marek Novák",
+   "vek": 11,
+   "zapasu": 64,
+   "soutezi": 6,
+   "tymy": "SŠB Pardubice,kval.,SŠB Pardubice-KVAL"
+  },
+  {
+   "jmeno": "Josef Šedivý",
+   "vek": 10,
+   "zapasu": 64,
+   "soutezi": 4,
+   "tymy": "Sokol Kbely"
+  },
+  {
+   "jmeno": "Sofie Kačíková",
+   "vek": 13,
+   "zapasu": 64,
+   "soutezi": 6,
+   "tymy": "BK Brandýs n.L.,Bra U13Ž,BKB U13Ž (kv)"
+  }
+ ],
+ "obraty": [
+  {
+   "tym": "Basketbal Olomouc",
+   "vedeni": 28,
+   "datum": "2026-01-16",
+   "domaci": "Basketbal Olomouc",
+   "home_score": 80,
+   "hoste": "BK VIVIDBOOKS Pardubice",
+   "away_score": 94,
+   "soutez": "1. liga mužů"
+  },
+  {
+   "tym": "Sokol pražský",
+   "vedeni": 27,
+   "datum": "2025-05-16",
+   "domaci": "Sokol pražský",
+   "home_score": 69,
+   "hoste": "BASKET Brno",
+   "away_score": 82,
+   "soutez": "Kvalifikace o extraligu U19M"
+  },
+  {
+   "tym": "BK NH Ostrava",
+   "vedeni": 22,
+   "datum": "2026-01-17",
+   "domaci": "Slavia Praha Tygři",
+   "home_score": 90,
+   "hoste": "MS Academy NH Ostrava",
+   "away_score": 85,
+   "soutez": "Extraliga U17M"
+  },
+  {
+   "tym": "Válečnice Děčín ",
+   "vedeni": 21,
+   "datum": "2025-10-04",
+   "domaci": "Válečnice Děčín",
+   "home_score": 63,
+   "hoste": "BA Sparta",
+   "away_score": 69,
+   "soutez": "Extraliga U17Ž"
+  },
+  {
+   "tym": "Tygři Brno ",
+   "vedeni": 21,
+   "datum": "2026-05-02",
+   "domaci": "BBA Brno",
+   "home_score": 69,
+   "hoste": "Sokol Písek Sršni",
+   "away_score": 87,
+   "soutez": "Extraliga U19M"
+  },
+  {
+   "tym": "BK ARMEX ENERGY Děčín",
+   "vedeni": 21,
+   "datum": "2026-05-08",
+   "domaci": "BK ARMEX ENERGY Děčín",
+   "home_score": 81,
+   "hoste": "PUMPA Basket Brno",
+   "away_score": 86,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "tym": "BK Wolves Radotín",
+   "vedeni": 20,
+   "datum": "2025-12-21",
+   "domaci": "Basketbal Polabí",
+   "home_score": 88,
+   "hoste": "BK Wolves Radotín",
+   "away_score": 82,
+   "soutez": "1. liga mužů"
+  },
+  {
+   "tym": "NH Ostrava",
+   "vedeni": 20,
+   "datum": "2025-12-30",
+   "domaci": "BK KVIS Pardubice",
+   "home_score": 83,
+   "hoste": "NH Ostrava",
+   "away_score": 80,
+   "soutez": "Maxa NBL"
+  }
+ ],
+ "prodlouzeni": [
+  {
+   "datum": "2026-03-04",
+   "domaci": "NH Ostrava",
+   "home_score": 117,
+   "hoste": "BK Opava",
+   "away_score": 121,
+   "soutez": "Maxa NBL",
+   "ot_period": 3
+  },
+  {
+   "datum": "2025-10-19",
+   "domaci": "USK Praha B",
+   "home_score": 95,
+   "hoste": "ŠBK Parker-Hannifin Sadská",
+   "away_score": 94,
+   "soutez": "1. liga žen",
+   "ot_period": 2
+  },
+  {
+   "datum": "2026-03-14",
+   "domaci": "NH Ostrava",
+   "home_score": 87,
+   "hoste": "SLUNETA  Ústí nad Labem",
+   "away_score": 91,
+   "soutez": "Maxa NBL",
+   "ot_period": 2
+  },
+  {
+   "datum": "2025-09-20",
+   "domaci": "BK Levharti Chomutov",
+   "home_score": 86,
+   "hoste": "Sokol Písek Sršni",
+   "away_score": 95,
+   "soutez": "Extraliga U17M",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-09-27",
+   "domaci": "Sokol Písek Sršni",
+   "home_score": 90,
+   "hoste": "BK Opava",
+   "away_score": 91,
+   "soutez": "Extraliga U19M",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-10-04",
+   "domaci": "Válečnice Děčín",
+   "home_score": 63,
+   "hoste": "BA Sparta",
+   "away_score": 69,
+   "soutez": "Extraliga U17Ž",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-10-10",
+   "domaci": "BC Nový Jičín",
+   "home_score": 100,
+   "hoste": "BK Opava B",
+   "away_score": 94,
+   "soutez": "1. liga mužů",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-10-12",
+   "domaci": "MS Academy",
+   "home_score": 94,
+   "hoste": "GBA Lions Jindřichův Hradec",
+   "away_score": 89,
+   "soutez": "1. liga mužů",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-11-06",
+   "domaci": "USK Praha B",
+   "home_score": 72,
+   "hoste": "Sokol Nusle",
+   "away_score": 73,
+   "soutez": "1. liga žen",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-11-09",
+   "domaci": "BK Lvice Litoměřice",
+   "home_score": 76,
+   "hoste": "Slavia Praha Tygři",
+   "away_score": 70,
+   "soutez": "Extraliga U17Ž",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-11-19",
+   "domaci": "BK Olomoucko",
+   "home_score": 100,
+   "hoste": "Sršni Photomate Písek",
+   "away_score": 103,
+   "soutez": "Maxa NBL",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-11-22",
+   "domaci": "BK VIVIDBOOKS Pardubice",
+   "home_score": 74,
+   "hoste": "MS Academy Snakes Ostrava",
+   "away_score": 66,
+   "soutez": "Extraliga U17M",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-11-23",
+   "domaci": "DBaK",
+   "home_score": 82,
+   "hoste": "Válečnice Děčín",
+   "away_score": 84,
+   "soutez": "Extraliga U17Ž",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-12-13",
+   "domaci": "DBaK",
+   "home_score": 61,
+   "hoste": "BK Levhartice Chomutov B",
+   "away_score": 65,
+   "soutez": "1. liga žen",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-12-13",
+   "domaci": "NH Ostrava",
+   "home_score": 106,
+   "hoste": "BK Opava",
+   "away_score": 102,
+   "soutez": "Maxa NBL",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-12-19",
+   "domaci": "USK Praha B",
+   "home_score": 90,
+   "hoste": "Válečníci Děčín",
+   "away_score": 99,
+   "soutez": "1. liga mužů",
+   "ot_period": 1
+  },
+  {
+   "datum": "2025-12-29",
+   "domaci": "KP Brno",
+   "home_score": 94,
+   "hoste": "Žabiny Brno",
+   "away_score": 89,
+   "soutez": "Chance ŽBL",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-01-24",
+   "domaci": "Sokol Písek Sršni",
+   "home_score": 85,
+   "hoste": "BBA Brno",
+   "away_score": 78,
+   "soutez": "Extraliga U19M",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-02-13",
+   "domaci": "Slavoj BK Litoměřice",
+   "home_score": 87,
+   "hoste": "BC Nový Jičín",
+   "away_score": 93,
+   "soutez": "1. liga mužů",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-02-20",
+   "domaci": "BC Nový Jičín",
+   "home_score": 89,
+   "hoste": "BK Lokomotiva Plzeň",
+   "away_score": 81,
+   "soutez": "1. liga mužů",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-02-21",
+   "domaci": "BBA Brno",
+   "home_score": 73,
+   "hoste": "BK Levharti Chomutov",
+   "away_score": 65,
+   "soutez": "Extraliga U17M",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-03-24",
+   "domaci": "Basketbal Olomouc",
+   "home_score": 99,
+   "hoste": "CZ.ACADEMY",
+   "away_score": 93,
+   "soutez": "1. liga mužů",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-03-27",
+   "domaci": "BK Lokomotiva Plzeň",
+   "home_score": 91,
+   "hoste": "Tuři Svitavy",
+   "away_score": 96,
+   "soutez": "1. liga mužů",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-04-12",
+   "domaci": "Tuři Svitavy",
+   "home_score": 88,
+   "hoste": "BC Nový Jičín",
+   "away_score": 84,
+   "soutez": "1. liga mužů",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-04-15",
+   "domaci": "USK Praha",
+   "home_score": 84,
+   "hoste": "Slavia Praha Tygři",
+   "away_score": 92,
+   "soutez": "Extraliga U19M",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-04-17",
+   "domaci": "Žabiny Brno B",
+   "home_score": 80,
+   "hoste": "USK Praha B",
+   "away_score": 76,
+   "soutez": "1. liga žen",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-04-24",
+   "domaci": "BK VIVIDBOOKS Pardubice",
+   "home_score": 84,
+   "hoste": "Válečníci Děčín",
+   "away_score": 78,
+   "soutez": "Extraliga U19M",
+   "ot_period": 1
+  },
+  {
+   "datum": "2026-06-06",
+   "domaci": "PUMPA Basket Brno",
+   "home_score": 101,
+   "hoste": "BK Opava",
+   "away_score": 102,
+   "soutez": "Maxa NBL",
+   "ot_period": 1
+  }
+ ],
+ "smece": [
+  {
+   "jmeno": "Z. Key",
+   "smeci": 75
+  },
+  {
+   "jmeno": "C. Brown Jr",
+   "smeci": 61
+  },
+  {
+   "jmeno": "K. Kalu",
+   "smeci": 43
+  },
+  {
+   "jmeno": "A. Kejval",
+   "smeci": 42
+  },
+  {
+   "jmeno": "M. Svoboda",
+   "smeci": 41
+  },
+  {
+   "jmeno": "M. Houška",
+   "smeci": 33
+  },
+  {
+   "jmeno": "M. Perkins",
+   "smeci": 32
+  },
+  {
+   "jmeno": "M. Zvolánek",
+   "smeci": 30
+  },
+  {
+   "jmeno": "M. Stráněl",
+   "smeci": 30
+  },
+  {
+   "jmeno": "V. Vondra",
+   "smeci": 28
+  }
+ ],
+ "snury": [
+  {
+   "tym": "Tygři Praha A",
+   "vyher": 37,
+   "od": "2025-10-04",
+   "do": "2025-11-16",
+   "zapasu_celkem": 143
+  },
+  {
+   "tym": "ZVVZ USK Praha",
+   "vyher": 31,
+   "od": "2025-09-27",
+   "do": "2026-04-26",
+   "zapasu_celkem": 31
+  },
+  {
+   "tym": "Sokol Písek Sršni h",
+   "vyher": 29,
+   "od": "2026-02-07",
+   "do": "2026-04-19",
+   "zapasu_celkem": 108
+  },
+  {
+   "tym": "SK UP BCM Olomouc A",
+   "vyher": 28,
+   "od": "2026-01-22",
+   "do": "2026-04-13",
+   "zapasu_celkem": 87
+  },
+  {
+   "tym": "Basket Opava 2010",
+   "vyher": 23,
+   "od": "2025-09-27",
+   "do": "2025-11-08",
+   "zapasu_celkem": 122
+  },
+  {
+   "tym": "BK Lokomotiva Plzeň",
+   "vyher": 21,
+   "od": "2026-01-11",
+   "do": "2026-02-15",
+   "zapasu_celkem": 139
+  },
+  {
+   "tym": "BA Nymburk U13M",
+   "vyher": 18,
+   "od": "2025-09-14",
+   "do": "2026-03-08",
+   "zapasu_celkem": 24
+  },
+  {
+   "tym": "SBŠ Ostrava bílá",
+   "vyher": 18,
+   "od": "2025-10-18",
+   "do": "2026-02-22",
+   "zapasu_celkem": 40
+  },
+  {
+   "tym": "Academy Ostrava",
+   "vyher": 17,
+   "od": "2025-11-08",
+   "do": "2026-02-07",
+   "zapasu_celkem": 56
+  },
+  {
+   "tym": "Vlčice Žďár",
+   "vyher": 17,
+   "od": "2025-12-14",
+   "do": "2026-02-17",
+   "zapasu_celkem": 86
+  },
+  {
+   "tym": "Sokol Hradec Králové",
+   "vyher": 17,
+   "od": "2025-11-19",
+   "do": "2025-12-06",
+   "zapasu_celkem": 238
+  },
+  {
+   "tym": "BA Nymburk U11M",
+   "vyher": 17,
+   "od": "2025-09-14",
+   "do": "2026-03-21",
+   "zapasu_celkem": 22
+  }
+ ],
+ "navstevnost_top": [
+  {
+   "datum": "2026-02-28",
+   "domaci": "ZVVZ USK Praha",
+   "hoste": "Žabiny Brno",
+   "home_score": 97,
+   "away_score": 60,
+   "divaku": 3852,
+   "soutez": "Chance ŽBL"
+  },
+  {
+   "datum": "2026-04-11",
+   "domaci": "Sršni Photomate Písek",
+   "hoste": "ERA Basketball Nymburk",
+   "home_score": 78,
+   "away_score": 106,
+   "divaku": 2720,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "datum": "2026-05-04",
+   "domaci": "Sršni Photomate Písek",
+   "hoste": "BK KVIS Pardubice",
+   "home_score": 63,
+   "away_score": 78,
+   "divaku": 2321,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "datum": "2025-12-27",
+   "domaci": "BK Opava",
+   "hoste": "USK Praha",
+   "home_score": 89,
+   "away_score": 81,
+   "divaku": 2238,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "datum": "2026-06-04",
+   "domaci": "BK Opava",
+   "hoste": "PUMPA Basket Brno",
+   "home_score": 96,
+   "away_score": 65,
+   "divaku": 2130,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "datum": "2026-04-21",
+   "domaci": "Sršni Photomate Písek",
+   "hoste": "USK Praha",
+   "home_score": 78,
+   "away_score": 65,
+   "divaku": 2112,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "datum": "2025-12-06",
+   "domaci": "BK KVIS Pardubice",
+   "hoste": "SK Slavia Praha ERA NBK",
+   "home_score": 88,
+   "away_score": 79,
+   "divaku": 2110,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "datum": "2026-05-11",
+   "domaci": "PUMPA Basket Brno",
+   "hoste": "BK ARMEX ENERGY Děčín",
+   "home_score": 98,
+   "away_score": 78,
+   "divaku": 2088,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "datum": "2026-05-05",
+   "domaci": "Sršni Photomate Písek",
+   "hoste": "BK KVIS Pardubice",
+   "home_score": 71,
+   "away_score": 79,
+   "divaku": 2066,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "datum": "2025-11-19",
+   "domaci": "BK Opava",
+   "hoste": "MS Academy Snakes Ostrava",
+   "home_score": 81,
+   "away_score": 90,
+   "divaku": 2043,
+   "soutez": "Extraliga U17M"
+  }
+ ],
+ "navstevnost_celkem": {
+  "divaku": 350118,
+  "zapasu": 1488
+ }
+}
