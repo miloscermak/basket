@@ -137,7 +137,8 @@ def main():
     for (r_str,) in con.execute(f"SELECT referees FROM matches WHERE referees IS NOT NULL AND {played}"):
         for name in r_str.split(";"):
             name = name.strip()
-            if len(name) > 4:
+            # "Zajistí pořadatel" apod. nejsou jména rozhodčích
+            if len(name) > 4 and "pořadatel" not in name.lower() and "zajistí" not in name.lower():
                 refs[name] += 1
     o["rozhodci_top"] = [{"jmeno": n, "zapasu": c} for n, c in refs.most_common(15)]
     o["rozhodcich_celkem"] = len(refs)

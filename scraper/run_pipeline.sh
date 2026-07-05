@@ -14,4 +14,7 @@ echo "=== 4/5 parsování profilů ==="
 $PY parse_players.py
 echo "=== 5/5 přegenerování overview ==="
 $PY ../analysis/build_overview.py
+$PY ../analysis/build_records.py
+$PY ../analysis/build_careers.py
+$PY ../analysis/bundle_data.py
 echo "=== PIPELINE HOTOVA ==="

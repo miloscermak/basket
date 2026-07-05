@@ -871,10 +871,6 @@
    "zapasu": 176
   },
   {
-   "jmeno": "Zajistí pořadatel",
-   "zapasu": 171
-  },
-  {
    "jmeno": "Artem Petrenko",
    "zapasu": 168
   },
@@ -905,9 +901,13 @@
   {
    "jmeno": "Jan Lejčko",
    "zapasu": 147
+  },
+  {
+   "jmeno": "Štěpán Urbánek",
+   "zapasu": 147
   }
  ],
- "rozhodcich_celkem": 651,
+ "rozhodcich_celkem": 650,
  "haly_top": [
   {
    "hala": "",

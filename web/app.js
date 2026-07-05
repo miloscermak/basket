@@ -5,10 +5,9 @@ const $ = (id) => document.getElementById(id);
 const DAYS = ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"];
 
 async function main() {
-  const [o, r] = await Promise.all([
-    fetch("data/overview.json").then((x) => x.json()),
-    fetch("data/records.json").then((x) => x.json()),
-  ]);
+  // data jsou přibalená v data.js (fetch nefunguje při otevření přes file://)
+  const o = window.BASKET_DATA.overview;
+  const r = window.BASKET_DATA.records;
 
   bignums(o);
   categories(o);
@@ -202,14 +201,9 @@ function tables(o, r) {
   );
 }
 
-// Kariérní data jsou volitelná — sekce se ukáže, až careers.json existuje.
+// Kariérní data jsou volitelná — sekce se ukáže, jen když jsou v balíčku.
 async function careers() {
-  let c;
-  try {
-    c = await fetch("data/careers.json").then((x) => (x.ok ? x.json() : null));
-  } catch {
-    return;
-  }
+  const c = window.BASKET_DATA.careers;
   if (!c) return;
   document.getElementById("kariery").hidden = false;
 
