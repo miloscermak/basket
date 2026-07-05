@@ -20,14 +20,17 @@ každý rozhodčí. Vznikl jako podklad pro vyhlášení Basketbalisty roku 2026
 
 ## Jak si web prohlédnout
 
+Stačí otevřít `web/index.html` (dvojklikem) — data jsou přibalená v `web/data.js`.
+Případně přes lokální server:
+
 ```bash
 python3 -m http.server 8763 --directory web
 # → http://localhost:8763
 ```
 
-Web je čisté HTML + CSS + vanilla JavaScript bez závislostí. Data čte
-z předpočítaných JSONů ve `web/data/` (jsou součástí repozitáře, web tedy funguje
-i bez databáze).
+Web je čisté HTML + CSS + vanilla JavaScript bez závislostí. Zdrojové JSONy jsou
+ve `web/data/`, do `data.js` je balí `analysis/bundle_data.py` (spustit po každé
+změně dat).
 
 ## Odkud jsou data
 
