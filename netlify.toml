@@ -1,0 +1,3 @@
+# Statický web bez build kroku — publikuje se přímo složka web/
+[build]
+  publish = "web"

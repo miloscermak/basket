@@ -75,8 +75,17 @@ návštěvností), `boxscores` (výkony hráčů po zápasech), `players`,
 
 ### Analýzy (`analysis/`)
 
-`build_overview.py` (velký obraz, heatmapa, domácí výhoda), `build_records.py`
-(kuriozity, rekordy, lidé sezóny), `build_careers.py` (historické kariéry).
+| Skript | Sekce webu |
+|---|---|
+| `build_overview.py` | velký obraz, kategorie, heatmapa „kdy se hraje", domácí výhoda, rozhodčí, haly |
+| `build_records.py` | kuriozity (obraty, šňůry, prodloužení), top výkony, nejstarší hráči, návštěvnost |
+| `build_careers.py` | nejdelší kariéry, historické počty zápasů, veteráni s rekordem |
+| `build_pbp_insights.py` | clutch žebříček (koncovky), anatomie zápasu po minutách |
+| `build_shots.py` | střelecké mapy (hustota po buňkách hřiště), trojková revoluce |
+| `build_names.py` | nejčastější příjmení (slučuje ženské tvary), rodinné klany, věková rozpětí |
+| `build_search.py` | vyhledávací index všech 22 tisíc hráčů |
+| `bundle_data.py` | balí všechny JSONy do `web/data.js` (nutné po každé změně dat) |
+
 Po jakékoliv změně dat stačí skripty spustit znovu — JSONy se přepíšou.
 
 ## Známé limity dat
@@ -97,6 +106,13 @@ Web má připravené prázdné sekce pro: **demografii** (registrace hráčů z 
 podle věku/pohlaví/kraje), **přestupy** (migrační mapa mezi kluby) a **rozhodčí**
 (licence, věková struktura, vytížení). Kompletní wishlist s odůvodněním je
 v [PRUZKUM.md](PRUZKUM.md), sekce 3.
+
+## Nasazení (Netlify)
+
+Web je statický bez build kroku — `netlify.toml` říká, že se publikuje složka
+`web/`. Stačí repozitář propojit s Netlify (New site from Git) a nasadí se sám
+při každém pushi. Alternativně ručně: přetáhnout složku `web/` na
+https://app.netlify.com/drop.
 
 ## Obnova dat
 

@@ -23,7 +23,9 @@ na data od federace (ČBF).
 4. `download_players.py` → `parse_players.py` — profily hráčů → kariéry, rekordy
 5. `parse_group_stats.py`, `parse_categories.py` — sezónní statistiky a kategorie
    z už cachovaných stránek
-6. `analysis/build_*.py` — přegenerování JSONů pro web
+6. `analysis/build_*.py` — přegenerování JSONů pro web (přehled v README)
+7. `analysis/bundle_data.py` — VŽDY nakonec: balí JSONy do `web/data.js`
+   (web čte data odtud, ať funguje i z file://; `data.js` needitovat ručně)
 
 Stahování běží slušně (0,4 s pauza, UA s kontaktem). Dlouhé běhy spouštět přes
 `nohup caffeinate -i …`, jinak je uspání Macu zabije.
@@ -47,6 +49,20 @@ Stahování běží slušně (0,4 s pauza, UA s kontaktem). Dlouhé běhy spouš
   filtrovat přes temp tabulku `_complete_box` (součet bodů hráčů == skóre týmu).
 - **Kategorie soutěží** (muži/ženy/U10–U19) jsou z tabů indexových stránek;
   enumerate je NESMÍ přepsat (upsert zachovává sloupec category).
+- **Ženská příjmení** se slučují s mužskými přes kandidáty (Nováková→Novák,
+  Svobodová→Svoboda, Novotná→Novotný) — viz make_normalizer v build_names.py;
+  prosté oříznutí „-ová" nestačí.
+- **Souřadnice střel** pokrývají celé hřiště (x 0–100 délka, y 0–100 šířka);
+  na jednu polovinu se překládají zrcadlením: x>50 → (100−x, 100−y). Koš je
+  ~5,6 jednotky od čáry.
+- **Clutch definice**: poslední 2 min 4. čtvrtiny nebo prodloužení, |lead| ≤ 5.
+- V pbp/shots/ls_teams jsou hráči jen jménem („D. Elich"), NE portálovým ID —
+  napojení na tabulku players jde jen přes jméno a tým, opatrně na shody jmen.
+
+## Nasazení
+
+- GitHub: https://github.com/miloscermak/basket
+- Netlify: statický deploy složky `web/` (netlify.toml), bez build kroku.
 
 ## Konvence
 
