@@ -109,12 +109,16 @@
  "clutch_zapasu": 441,
  "anatomie": [
   {
-   "minuta": 2,
+   "minuta": 1,
    "bodu_prumer": 3.14
   },
   {
-   "minuta": 3,
+   "minuta": 2,
    "bodu_prumer": 3.87
+  },
+  {
+   "minuta": 3,
+   "bodu_prumer": 3.96
   },
   {
    "minuta": 4,
@@ -122,147 +126,147 @@
   },
   {
    "minuta": 5,
-   "bodu_prumer": 3.96
-  },
-  {
-   "minuta": 6,
    "bodu_prumer": 3.95
   },
   {
-   "minuta": 7,
+   "minuta": 6,
    "bodu_prumer": 3.88
   },
   {
-   "minuta": 8,
+   "minuta": 7,
    "bodu_prumer": 3.86
   },
   {
-   "minuta": 9,
+   "minuta": 8,
    "bodu_prumer": 3.91
   },
   {
+   "minuta": 9,
+   "bodu_prumer": 3.94
+  },
+  {
    "minuta": 10,
-   "bodu_prumer": 7.65
+   "bodu_prumer": 3.71
   },
   {
    "minuta": 11,
-   "bodu_prumer": 0.0
-  },
-  {
-   "minuta": 12,
    "bodu_prumer": 3.2
   },
   {
-   "minuta": 13,
+   "minuta": 12,
    "bodu_prumer": 3.62
+  },
+  {
+   "minuta": 13,
+   "bodu_prumer": 3.77
   },
   {
    "minuta": 14,
-   "bodu_prumer": 3.77
-  },
-  {
-   "minuta": 15,
    "bodu_prumer": 3.74
   },
   {
-   "minuta": 16,
+   "minuta": 15,
    "bodu_prumer": 3.77
   },
   {
-   "minuta": 17,
+   "minuta": 16,
    "bodu_prumer": 3.7
   },
   {
-   "minuta": 18,
+   "minuta": 17,
    "bodu_prumer": 3.96
   },
   {
-   "minuta": 19,
+   "minuta": 18,
    "bodu_prumer": 3.89
   },
   {
+   "minuta": 19,
+   "bodu_prumer": 3.98
+  },
+  {
    "minuta": 20,
-   "bodu_prumer": 7.9
+   "bodu_prumer": 3.92
   },
   {
    "minuta": 21,
-   "bodu_prumer": 0.01
+   "bodu_prumer": 3.14
   },
   {
    "minuta": 22,
-   "bodu_prumer": 3.13
-  },
-  {
-   "minuta": 23,
    "bodu_prumer": 3.62
   },
   {
-   "minuta": 24,
+   "minuta": 23,
    "bodu_prumer": 3.75
   },
   {
-   "minuta": 25,
+   "minuta": 24,
    "bodu_prumer": 3.78
   },
   {
-   "minuta": 26,
+   "minuta": 25,
    "bodu_prumer": 3.8
   },
   {
-   "minuta": 27,
+   "minuta": 26,
    "bodu_prumer": 3.78
   },
   {
-   "minuta": 28,
+   "minuta": 27,
    "bodu_prumer": 3.83
   },
   {
-   "minuta": 29,
+   "minuta": 28,
    "bodu_prumer": 3.79
   },
   {
+   "minuta": 29,
+   "bodu_prumer": 3.86
+  },
+  {
    "minuta": 30,
-   "bodu_prumer": 7.59
+   "bodu_prumer": 3.73
   },
   {
    "minuta": 31,
-   "bodu_prumer": 0.0
+   "bodu_prumer": 3.13
   },
   {
    "minuta": 32,
-   "bodu_prumer": 3.12
+   "bodu_prumer": 3.65
   },
   {
    "minuta": 33,
-   "bodu_prumer": 3.65
-  },
-  {
-   "minuta": 34,
    "bodu_prumer": 3.68
   },
   {
-   "minuta": 35,
+   "minuta": 34,
    "bodu_prumer": 3.51
   },
   {
-   "minuta": 36,
+   "minuta": 35,
    "bodu_prumer": 3.6
   },
   {
-   "minuta": 37,
+   "minuta": 36,
    "bodu_prumer": 3.56
   },
   {
-   "minuta": 38,
+   "minuta": 37,
    "bodu_prumer": 3.66
   },
   {
-   "minuta": 39,
+   "minuta": 38,
    "bodu_prumer": 3.65
   },
   {
+   "minuta": 39,
+   "bodu_prumer": 3.86
+  },
+  {
    "minuta": 40,
-   "bodu_prumer": 8.26
+   "bodu_prumer": 4.4
   }
  ],
  "anatomie_zapasu": 1628

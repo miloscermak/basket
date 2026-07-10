@@ -49,16 +49,18 @@ def main():
     n_games = con.execute(
         "SELECT COUNT(DISTINCT livestats_id) FROM pbp WHERE period_type='REGULAR'"
     ).fetchone()[0]
+    # gt se odpočítává od 10:00 → uplynulá minuta (1–10) = 10 − celé zbývající
+    # minuty; přesně 10:00 patří do 1. minuty, čas "00:xx" do 10. minuty
     rows = con.execute(f"""
-        SELECT (period-1)*10 + MIN(9, 10 - CAST(substr(gt,1,2) AS INTEGER)) minuta,
+        SELECT (period-1)*10 + MAX(1, MIN(10, 10 - CAST(substr(gt,1,2) AS INTEGER))) minuta,
                SUM({PTS}) bodu
         FROM pbp
         WHERE period_type='REGULAR' AND success=1
           AND action_type IN ('2pt','3pt','freethrow')
         GROUP BY minuta ORDER BY minuta""").fetchall()
     d["anatomie"] = [
-        {"minuta": r["minuta"] + 1, "bodu_prumer": round(r["bodu"] / n_games, 2)}
-        for r in rows if 0 <= r["minuta"] < 40
+        {"minuta": r["minuta"], "bodu_prumer": round(r["bodu"] / n_games, 2)}
+        for r in rows if 1 <= r["minuta"] <= 40
     ]
     d["anatomie_zapasu"] = n_games
 
