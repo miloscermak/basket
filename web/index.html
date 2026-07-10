@@ -18,6 +18,16 @@
 
 <main>
 
+<section id="hledani">
+  <h2>Najdi hráče nebo hráčku</h2>
+  <p class="section-note">Všech 22 112 lidí, kteří letos nastoupili k zápasu se
+     statistikami — od NBL po minižáky.</p>
+  <div class="card">
+    <input id="search-input" type="search" placeholder="Začni psát jméno… (např. Novák)" autocomplete="off">
+    <div id="search-results"></div>
+  </div>
+</section>
+
 <section id="kategorie">
   <h2>Kdo hraje český basketbal</h2>
   <p class="section-note">Zápasy sezóny podle kategorií. Většinu českého basketbalu
@@ -40,6 +50,38 @@
   <h2>Domácí výhoda</h2>
   <p class="section-note">Podíl výher domácích v dospělých soutěžích podle úrovně.</p>
   <div class="card" id="homeadv"></div>
+</section>
+
+<section id="strelba">
+  <h2>Odkud se střílí</h2>
+  <p class="section-note">169 tisíc střel se souřadnicemi ze zápasů s podrobným
+     online zápisem. Čím sytější barva, tím víc střel z daného místa.</p>
+  <div class="split">
+    <div class="card">
+      <div id="shotmap-buttons" class="btn-row"></div>
+      <div id="shotmap"></div>
+      <p class="table-note" id="shotmap-note"></p>
+    </div>
+    <div class="card">
+      <h3>Trojková revoluce po úrovních</h3>
+      <p class="table-note">Podíl střel z pole vypuštěných za tři body.</p>
+      <div id="threes-bars"></div>
+      <p class="table-note" style="margin-top:12px">V NBL už jde skoro každá druhá
+         střela za tři. (Nižší soutěže podíl neevidují — zapisují se jen proměněné koše.)</p>
+    </div>
+  </div>
+</section>
+
+<section id="prubeh">
+  <h2>Anatomie zápasu</h2>
+  <p class="section-note" id="anatomy-note"></p>
+  <div class="card" id="anatomy"></div>
+</section>
+
+<section id="koncovky">
+  <h2>Muži a ženy pro koncovky</h2>
+  <p class="section-note" id="clutch-note"></p>
+  <div class="card"><div id="tbl-clutch"></div></div>
 </section>
 
 <section id="kuriozity">
@@ -76,6 +118,19 @@
     <div class="card"><h3>Nejvíc zápasů v historii evidence</h3><div id="tbl-historie"></div></div>
   </div>
   <div class="card" style="margin-top:16px"><h3>Veteráni s letošním osobním rekordem</h3><p class="table-note">Hráči s kariérou 10+ let, kteří si právě letos vylepšili kariérní bodové maximum.</p><div id="tbl-rekordy"></div></div>
+</section>
+
+<section id="jmena">
+  <h2>Jména českého basketbalu</h2>
+  <div class="split">
+    <div class="card"><h3>Nejčastější příjmení</h3><p class="table-note">Mužské a ženské tvary počítané dohromady.</p><div id="tbl-prijmeni"></div></div>
+    <div class="card"><h3>Rodinné klany</h3><p class="table-note">Nejvíc lidí stejného příjmení v jednom týmu.</p><div id="tbl-klany"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Kde se potkávají generace</h3>
+    <p class="table-note">Dospělé soutěže s největším věkovým rozpětím hráčů (min. 3 zápasy).</p>
+    <div id="tbl-rozpeti"></div>
+  </div>
 </section>
 
 <section id="prostredi">

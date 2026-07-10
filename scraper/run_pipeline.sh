@@ -16,5 +16,9 @@ echo "=== 5/5 přegenerování overview ==="
 $PY ../analysis/build_overview.py
 $PY ../analysis/build_records.py
 $PY ../analysis/build_careers.py
+$PY ../analysis/build_pbp_insights.py
+$PY ../analysis/build_shots.py
+$PY ../analysis/build_names.py
+$PY ../analysis/build_search.py
 $PY ../analysis/bundle_data.py
 echo "=== PIPELINE HOTOVA ==="

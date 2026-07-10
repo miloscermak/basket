@@ -123,6 +123,35 @@ td .sub { display: block; color: var(--ink-dim); font-size: .78rem; }
 .ghost p { color: var(--ink-dim); font-size: .88rem; }
 .pending h2::after { content: " ⏳"; }
 
+/* ---------- vyhledávání ---------- */
+#search-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  font-size: 1.05rem;
+  padding: 12px 16px;
+  outline: none;
+}
+#search-input:focus { border-color: var(--accent); }
+#search-results { margin-top: 12px; }
+#search-results .hint { color: var(--ink-dim); font-size: .85rem; }
+
+/* ---------- střelecká mapa ---------- */
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.btn-row button {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink-dim);
+  font-size: .85rem;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.btn-row button.active { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+#shotmap svg { width: 100%; height: auto; display: block; }
+
 footer {
   border-top: 1px solid var(--line);
   color: var(--ink-dim);

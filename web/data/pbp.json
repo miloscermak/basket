@@ -1,0 +1,269 @@
+{
+ "clutch": [
+  {
+   "jmeno": "W. Person Jr",
+   "tym": "BK Opava",
+   "bodu": 38,
+   "zapasu": 9,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "J. Bryant ",
+   "tym": "BK KVIS Pardubice",
+   "bodu": 37,
+   "zapasu": 13,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "K. Cole",
+   "tym": "NH Ostrava",
+   "bodu": 31,
+   "zapasu": 8,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "D. Davis",
+   "tym": "BK ARMEX ENERGY Děčín",
+   "bodu": 29,
+   "zapasu": 9,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "T. Vyoral",
+   "tym": "SLUNETA  Ústí nad Labem",
+   "bodu": 29,
+   "zapasu": 6,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "C. Brown Jr",
+   "tym": "BK Opava",
+   "bodu": 27,
+   "zapasu": 8,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "T. Kačírek",
+   "tym": "Sokol Písek Sršni",
+   "bodu": 27,
+   "zapasu": 7,
+   "soutez": "Extraliga U19M"
+  },
+  {
+   "jmeno": "L. Greer",
+   "tym": "NH Ostrava",
+   "bodu": 25,
+   "zapasu": 6,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "D. Jelínek",
+   "tym": "PUMPA Basket Brno",
+   "bodu": 24,
+   "zapasu": 9,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "R. Bonham",
+   "tym": "BK KVIS Pardubice",
+   "bodu": 24,
+   "zapasu": 8,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "F. Horváth",
+   "tym": "BK VIVIDBOOKS Pardubice",
+   "bodu": 23,
+   "zapasu": 6,
+   "soutez": "1. liga mužů"
+  },
+  {
+   "jmeno": "O. Peterka",
+   "tym": "BK NAPOS Vysoká n. L.",
+   "bodu": 22,
+   "zapasu": 6,
+   "soutez": "1. liga mužů"
+  },
+  {
+   "jmeno": "J. Kopecký",
+   "tym": "Válečníci Děčín",
+   "bodu": 21,
+   "zapasu": 6,
+   "soutez": "Extraliga U17M"
+  },
+  {
+   "jmeno": "R. Jones",
+   "tym": "SK Slavia Praha",
+   "bodu": 20,
+   "zapasu": 6,
+   "soutez": "Maxa NBL"
+  },
+  {
+   "jmeno": "T. Olison",
+   "tym": "PUMPA Basket Brno",
+   "bodu": 20,
+   "zapasu": 5,
+   "soutez": "Maxa NBL"
+  }
+ ],
+ "clutch_zapasu": 441,
+ "anatomie": [
+  {
+   "minuta": 2,
+   "bodu_prumer": 3.14
+  },
+  {
+   "minuta": 3,
+   "bodu_prumer": 3.87
+  },
+  {
+   "minuta": 4,
+   "bodu_prumer": 3.96
+  },
+  {
+   "minuta": 5,
+   "bodu_prumer": 3.96
+  },
+  {
+   "minuta": 6,
+   "bodu_prumer": 3.95
+  },
+  {
+   "minuta": 7,
+   "bodu_prumer": 3.88
+  },
+  {
+   "minuta": 8,
+   "bodu_prumer": 3.86
+  },
+  {
+   "minuta": 9,
+   "bodu_prumer": 3.91
+  },
+  {
+   "minuta": 10,
+   "bodu_prumer": 7.65
+  },
+  {
+   "minuta": 11,
+   "bodu_prumer": 0.0
+  },
+  {
+   "minuta": 12,
+   "bodu_prumer": 3.2
+  },
+  {
+   "minuta": 13,
+   "bodu_prumer": 3.62
+  },
+  {
+   "minuta": 14,
+   "bodu_prumer": 3.77
+  },
+  {
+   "minuta": 15,
+   "bodu_prumer": 3.74
+  },
+  {
+   "minuta": 16,
+   "bodu_prumer": 3.77
+  },
+  {
+   "minuta": 17,
+   "bodu_prumer": 3.7
+  },
+  {
+   "minuta": 18,
+   "bodu_prumer": 3.96
+  },
+  {
+   "minuta": 19,
+   "bodu_prumer": 3.89
+  },
+  {
+   "minuta": 20,
+   "bodu_prumer": 7.9
+  },
+  {
+   "minuta": 21,
+   "bodu_prumer": 0.01
+  },
+  {
+   "minuta": 22,
+   "bodu_prumer": 3.13
+  },
+  {
+   "minuta": 23,
+   "bodu_prumer": 3.62
+  },
+  {
+   "minuta": 24,
+   "bodu_prumer": 3.75
+  },
+  {
+   "minuta": 25,
+   "bodu_prumer": 3.78
+  },
+  {
+   "minuta": 26,
+   "bodu_prumer": 3.8
+  },
+  {
+   "minuta": 27,
+   "bodu_prumer": 3.78
+  },
+  {
+   "minuta": 28,
+   "bodu_prumer": 3.83
+  },
+  {
+   "minuta": 29,
+   "bodu_prumer": 3.79
+  },
+  {
+   "minuta": 30,
+   "bodu_prumer": 7.59
+  },
+  {
+   "minuta": 31,
+   "bodu_prumer": 0.0
+  },
+  {
+   "minuta": 32,
+   "bodu_prumer": 3.12
+  },
+  {
+   "minuta": 33,
+   "bodu_prumer": 3.65
+  },
+  {
+   "minuta": 34,
+   "bodu_prumer": 3.68
+  },
+  {
+   "minuta": 35,
+   "bodu_prumer": 3.51
+  },
+  {
+   "minuta": 36,
+   "bodu_prumer": 3.6
+  },
+  {
+   "minuta": 37,
+   "bodu_prumer": 3.56
+  },
+  {
+   "minuta": 38,
+   "bodu_prumer": 3.66
+  },
+  {
+   "minuta": 39,
+   "bodu_prumer": 3.65
+  },
+  {
+   "minuta": 40,
+   "bodu_prumer": 8.26
+  }
+ ],
+ "anatomie_zapasu": 1628
+}

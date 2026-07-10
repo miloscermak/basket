@@ -17,6 +17,12 @@ async function main() {
   curiosities(o, r);
   tables(o, r);
   careers();
+  search();
+  shotmap();
+  threes();
+  anatomy();
+  clutch();
+  names();
   $("generated").textContent = "Vygenerováno " + new Date().toLocaleDateString("cs-CZ");
 }
 
@@ -229,6 +235,173 @@ async function careers() {
       tdn(x.hodnota),
       td(`${x.jmeno}` + sub(`${x.sezon} sezón v evidenci`)),
       td(x.datum ?? ""),
+    ])
+  );
+}
+
+// ---------- vyhledávání hráčů ----------
+const deacc = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+function search() {
+  const idx = window.BASKET_DATA.search;
+  if (!idx) return;
+  const input = $("search-input");
+  const out = $("search-results");
+  const norm = idx.map((p) => deacc(p[0]));
+
+  function render(q) {
+    if (q.length < 2) {
+      out.innerHTML = `<p class="hint">Napiš aspoň dvě písmena.</p>`;
+      return;
+    }
+    const nq = deacc(q);
+    const hits = [];
+    for (let i = 0; i < norm.length && hits.length < 15; i++) {
+      if (norm[i].includes(nq)) hits.push(idx[i]);
+    }
+    if (!hits.length) {
+      out.innerHTML = `<p class="hint">Nikdo takový letos nenastoupil.</p>`;
+      return;
+    }
+    out.innerHTML = table(
+      ["Hráč/ka", "Věk", "Letos", "Kariéra"],
+      hits.map(([name, age, teams, games, ppg, comps, first, seasons, rec]) => [
+        td(`<b>${name}</b>` + sub(teams || "")),
+        td(age ?? "?"),
+        td(`${games ?? "?"} zápasů, ${ppg ?? "?"} b/z` + sub(`${comps} ${comps === 1 ? "soutěž" : comps < 5 ? "soutěže" : "soutěží"}`)),
+        td(first ? `od ${first}, ${seasons} sezón` + (rec ? sub(`max ${rec} bodů v zápase`) : "") : "první sezóna"),
+      ])
+    );
+  }
+  input.addEventListener("input", () => render(input.value.trim()));
+  render("");
+}
+
+// ---------- střelecká mapa ----------
+// souřadnice: fx 0–50 (délka půlky, koš u 0), fy 0–100 (šířka hřiště)
+function shotmap() {
+  const data = window.BASKET_DATA.shots;
+  if (!data) return;
+  const S = 30; // px na metr
+  const W = 14 * S, H = 15 * S;
+  const px = (fx) => (fx * 28 / 100) * S;
+  const py = (fy) => (fy * 15 / 100) * S;
+  const cell = data.cell;
+
+  function courtLines() {
+    const bx = px(5.625), by = H / 2; // koš 1,575 m od čáry
+    return `
+      <g fill="none" stroke="#5a4c3d" stroke-width="1.5">
+        <rect x="0" y="0" width="${W}" height="${H}"/>
+        <rect x="0" y="${by - 2.45 * S}" width="${5.8 * S}" height="${4.9 * S}"/>
+        <circle cx="${5.8 * S}" cy="${by}" r="${1.8 * S}"/>
+        <circle cx="${bx}" cy="${by}" r="${0.23 * S}" stroke="#8a7a68"/>
+        <path d="M ${0} ${by - 6.6 * S} L ${bx} ${by - 6.6 * S}
+                 A ${6.75 * S} ${6.75 * S} 0 0 1 ${bx} ${by + 6.6 * S}
+                 L ${0} ${by + 6.6 * S}"/>
+      </g>`;
+  }
+
+  function render(label) {
+    const m = data.mapy[label];
+    const max = Math.max(...m.cells.map((c) => c[2]));
+    let rects = "";
+    for (const [cx, cy, att, made] of m.cells) {
+      if (px(cx * cell) > W) continue;
+      const a = Math.sqrt(att / max); // odmocnina, ať jsou vidět i řidší místa
+      rects += `<rect x="${px(cx * cell)}" y="${py(cy * cell)}"
+        width="${px(cell) + 0.5}" height="${py(cell) + 0.5}"
+        fill="rgba(255,140,58,${(0.9 * a).toFixed(3)})">
+        <title>${att} střel, úspěšnost ${Math.round((100 * made) / att)} %</title></rect>`;
+    }
+    $("shotmap").innerHTML =
+      `<svg viewBox="-8 -8 ${W + 16} ${H + 16}" role="img" aria-label="Střelecká mapa – ${label}">
+         <g>${rects}</g>${courtLines()}</svg>`;
+    $("shotmap-note").textContent =
+      `${label}: ${fmt.format(m.strel)} střel z pole, úspěšnost ${m.usp} %.`;
+    document.querySelectorAll("#shotmap-buttons button").forEach((b) =>
+      b.classList.toggle("active", b.textContent === label));
+  }
+
+  $("shotmap-buttons").innerHTML = Object.keys(data.mapy)
+    .map((l) => `<button>${l}</button>`)
+    .join("");
+  document.querySelectorAll("#shotmap-buttons button").forEach((b) =>
+    b.addEventListener("click", () => render(b.textContent)));
+  render(Object.keys(data.mapy)[0]);
+}
+
+function threes() {
+  const data = window.BASKET_DATA.shots;
+  if (!data) return;
+  $("threes-bars").innerHTML = barChart(
+    data.trojky_urovne.map((u) => [u.uroven, u.podil_trojek]),
+    { max: 100, fmtVal: (v) => v.toFixed(1) + " %" }
+  );
+}
+
+// ---------- anatomie zápasu ----------
+function anatomy() {
+  const d = window.BASKET_DATA.pbp;
+  if (!d) return;
+  $("anatomy-note").textContent =
+    `Kolik bodů v průměru padne v každé minutě zápasu (${fmt.format(d.anatomie_zapasu)} ` +
+    `zápasů s podrobným zápisem, obě družstva dohromady). Hrací čas 4 × 10 minut.`;
+  const max = Math.max(...d.anatomie.map((m) => m.bodu_prumer));
+  $("anatomy").innerHTML =
+    `<div style="display:flex;align-items:flex-end;gap:2px;height:130px">` +
+    d.anatomie
+      .map(
+        (m) =>
+          `<div title="minuta ${m.minuta}: ${m.bodu_prumer} bodu" style="flex:1;background:${m.minuta % 20 > 10 || m.minuta % 20 === 0 ? "var(--accent)" : "var(--accent-soft)"};border-top:2px solid var(--accent);height:${(100 * m.bodu_prumer) / max}%"></div>`
+      )
+      .join("") +
+    `</div><div style="display:flex;color:var(--ink-dim);font-size:.75rem;margin-top:6px">` +
+    ["1. čtvrtina", "2. čtvrtina", "3. čtvrtina", "4. čtvrtina"]
+      .map((q) => `<div style="flex:1;text-align:center">${q}</div>`)
+      .join("") +
+    "</div>";
+}
+
+// ---------- clutch ----------
+function clutch() {
+  const d = window.BASKET_DATA.pbp;
+  if (!d) return;
+  $("clutch-note").textContent =
+    `Body v posledních dvou minutách vyrovnaných zápasů (rozdíl do 5 bodů) a v prodloužení. ` +
+    `Takových koncovek se letos hrálo ${fmt.format(d.clutch_zapasu)} — v soutěžích s podrobným zápisem.`;
+  $("tbl-clutch").innerHTML = table(
+    ["Bodů", "Hráč/ka", "Koncovek"],
+    d.clutch.slice(0, 12).map((x) => [
+      tdn(x.bodu),
+      td(`${x.jmeno}` + sub(`${x.tym} · ${x.soutez}`)),
+      td(x.zapasu),
+    ])
+  );
+}
+
+// ---------- jména ----------
+function names() {
+  const d = window.BASKET_DATA.names;
+  if (!d) return;
+  $("tbl-prijmeni").innerHTML = table(
+    ["Hráčů", "Příjmení"],
+    d.prijmeni.slice(0, 10).map((x) => [tdn(x.hracu), td(`${x.prijmeni}` + sub(x.tvary))])
+  );
+  $("tbl-klany").innerHTML = table(
+    ["Lidí", "Rodina"],
+    d.klany.slice(0, 8).map((x) => [
+      tdn(x.hracu),
+      td(`${x.prijmeni} — ${x.tym}` + sub(x.jmena)),
+    ])
+  );
+  $("tbl-rozpeti").innerHTML = table(
+    ["Rozpětí", "Soutěž", "Nejmladší", "Nejstarší"],
+    d.vekova_rozpeti.slice(0, 8).map((x) => [
+      tdn(`${x.rozpeti} let`),
+      td(x.soutez),
+      td(`${x.jmeno_nejmladsi} (${x.nejmladsi})`),
+      td(`${x.jmeno_nejstarsi} (${x.nejstarsi})`),
     ])
   );
 }

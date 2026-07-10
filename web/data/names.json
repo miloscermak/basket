@@ -1,0 +1,246 @@
+{
+ "prijmeni": [
+  {
+   "prijmeni": "Novák",
+   "hracu": 159,
+   "tvary": "Novák (115), Nováková (44)"
+  },
+  {
+   "prijmeni": "Dvořák",
+   "hracu": 115,
+   "tvary": "Dvořák (76), Dvořáková (39)"
+  },
+  {
+   "prijmeni": "Svoboda",
+   "hracu": 110,
+   "tvary": "Svoboda (81), Svobodová (29)"
+  },
+  {
+   "prijmeni": "Novotný",
+   "hracu": 105,
+   "tvary": "Novotný (65), Novotná (40)"
+  },
+  {
+   "prijmeni": "Černý",
+   "hracu": 81,
+   "tvary": "Černý (57), Černá (24)"
+  },
+  {
+   "prijmeni": "Kučera",
+   "hracu": 79,
+   "tvary": "Kučera (51), Kučerová (28)"
+  },
+  {
+   "prijmeni": "Procházka",
+   "hracu": 67,
+   "tvary": "Procházka (48), Procházková (19)"
+  },
+  {
+   "prijmeni": "Veselý",
+   "hracu": 57,
+   "tvary": "Veselý (35), Veselá (22)"
+  },
+  {
+   "prijmeni": "Král",
+   "hracu": 55,
+   "tvary": "Král (30), Králová (25)"
+  },
+  {
+   "prijmeni": "Horák",
+   "hracu": 51,
+   "tvary": "Horák (35), Horáková (16)"
+  },
+  {
+   "prijmeni": "Beneš",
+   "hracu": 47,
+   "tvary": "Beneš (32), Benešová (15)"
+  },
+  {
+   "prijmeni": "Kopecký",
+   "hracu": 47,
+   "tvary": "Kopecký (28), Kopecká (19)"
+  },
+  {
+   "prijmeni": "Pokorný",
+   "hracu": 45,
+   "tvary": "Pokorný (34), Pokorná (11)"
+  },
+  {
+   "prijmeni": "Pospíšil",
+   "hracu": 44,
+   "tvary": "Pospíšil (34), Pospíšilová (10)"
+  },
+  {
+   "prijmeni": "Navrátil",
+   "hracu": 44,
+   "tvary": "Navrátil (30), Navrátilová (14)"
+  }
+ ],
+ "prijmeni_celkem": 11169,
+ "klany": [
+  {
+   "tym": "SBŠ Třinec",
+   "prijmeni": "Sikora",
+   "hracu": 8,
+   "jmena": "Anežka Sikorová, Anita Sikorová, Ester Sikorová, Jan Sikora, Mikuláš Sikora, Ondřej Sikora, Robin Sikora, Vojtěch Sikora"
+  },
+  {
+   "tym": "BK Teplice",
+   "prijmeni": "Eisner",
+   "hracu": 7,
+   "jmena": "Adam Eisner, Antonín Eisner, Jitka Eisnerová, Ondřej Eisner, Petr Eisner, Tomáš Eisner, Václav Eisner"
+  },
+  {
+   "tym": "SK Voltage",
+   "prijmeni": "Rotrekl",
+   "hracu": 5,
+   "jmena": "Ivo Rotrekl, Lukáš Rotrekl, Matěj Rotrekl, Václav Rotrekl, Vít Rotrekl"
+  },
+  {
+   "tym": "BK Teplice",
+   "prijmeni": "Kubizňák",
+   "hracu": 5,
+   "jmena": "David Kubizňák, Jiří Kubizňák, Martin Kubizňák, Tomáš Kubizňák, Vít Kubizňák"
+  },
+  {
+   "tym": "SKB Česká Třebová",
+   "prijmeni": "Provazník",
+   "hracu": 5,
+   "jmena": "Adam Provazník, Lucie Provazníková, Matyáš Provazník, Ondřej Provazník, Štěpán Provazník"
+  },
+  {
+   "tym": "BC Dejvice",
+   "prijmeni": "Vojta",
+   "hracu": 4,
+   "jmena": "Dominik Vojta, Jiří Vojta, Matyáš Jiří Vojta, Tobiáš Vojta"
+  },
+  {
+   "tym": "BK Pirelli B",
+   "prijmeni": "Kvapil",
+   "hracu": 4,
+   "jmena": "Adéla Kvapilová, Karel Kvapil, Lenka Kvapilová, Věra Kvapilová"
+  },
+  {
+   "tym": "Sokol Židlochovice",
+   "prijmeni": "Brulík",
+   "hracu": 4,
+   "jmena": "Jan Brulík, Lukáš Brulík, Nela Brulíková, Sára Brulíková"
+  },
+  {
+   "tym": "Sokol Nová Paka",
+   "prijmeni": "Sekot",
+   "hracu": 4,
+   "jmena": "Adriana Sekotová, Hugo Sekot, Jaroslav Sekot, Kvido Sekot"
+  },
+  {
+   "tym": "Jiskra Kyjov",
+   "prijmeni": "Dubná",
+   "hracu": 4,
+   "jmena": "Adéla Dubná, Anna Dubná, Eva Dubná, Jitka Dubná"
+  },
+  {
+   "tym": "BK Jiskra Domažlice",
+   "prijmeni": "Vondraš",
+   "hracu": 4,
+   "jmena": "Jakub Vondraš, Jan Vondraš, Pavel Vondraš, Šimon Vondraš"
+  },
+  {
+   "tym": "BA Tygři Louny",
+   "prijmeni": "Polcar",
+   "hracu": 4,
+   "jmena": "Adam Polcar, David Polcar, Martin Polcar, Tomáš Polcar"
+  }
+ ],
+ "vekova_rozpeti": [
+  {
+   "soutez": "3.třída B",
+   "area": 1,
+   "nejmladsi": 18,
+   "nejstarsi": 75,
+   "rozpeti": 57,
+   "jmeno_nejmladsi": "Bohdan Banýr",
+   "jmeno_nejstarsi": "Miloslav Musil"
+  },
+  {
+   "soutez": "2.třída",
+   "area": 1,
+   "nejmladsi": 16,
+   "nejstarsi": 70,
+   "rozpeti": 54,
+   "jmeno_nejmladsi": "Ella Krajčovičová",
+   "jmeno_nejstarsi": "Anděla Burdová"
+  },
+  {
+   "soutez": "2.třída A",
+   "area": 1,
+   "nejmladsi": 19,
+   "nejstarsi": 69,
+   "rozpeti": 50,
+   "jmeno_nejmladsi": "Adam Jiříček",
+   "jmeno_nejstarsi": "Petr Janota"
+  },
+  {
+   "soutez": "Severomoravská liga mužů - 2.třída",
+   "area": 8,
+   "nejmladsi": 18,
+   "nejstarsi": 67,
+   "rozpeti": 49,
+   "jmeno_nejmladsi": "Josef Horák",
+   "jmeno_nejstarsi": "Milan Žák"
+  },
+  {
+   "soutez": "3.třída A",
+   "area": 1,
+   "nejmladsi": 19,
+   "nejstarsi": 66,
+   "rozpeti": 47,
+   "jmeno_nejmladsi": "Lukáš Horák",
+   "jmeno_nejstarsi": "Lukáš Klíma"
+  },
+  {
+   "soutez": "Západočeská Liga žen",
+   "area": 14,
+   "nejmladsi": 17,
+   "nejstarsi": 63,
+   "rozpeti": 46,
+   "jmeno_nejmladsi": "Amálie Risplerová",
+   "jmeno_nejstarsi": "Ladislava Pitrová"
+  },
+  {
+   "soutez": "Krajský přebor mužů",
+   "area": 2,
+   "nejmladsi": 16,
+   "nejstarsi": 62,
+   "rozpeti": 46,
+   "jmeno_nejmladsi": "Matěj Fořt",
+   "jmeno_nejstarsi": "Pavel Volejník"
+  },
+  {
+   "soutez": "2.třída C",
+   "area": 1,
+   "nejmladsi": 16,
+   "nejstarsi": 62,
+   "rozpeti": 46,
+   "jmeno_nejmladsi": "Vojta Hájek",
+   "jmeno_nejstarsi": "Josef Skácel"
+  },
+  {
+   "soutez": "2.Jihomoravská liga",
+   "area": 7,
+   "nejmladsi": 17,
+   "nejstarsi": 61,
+   "rozpeti": 44,
+   "jmeno_nejmladsi": "Tomáš Janík",
+   "jmeno_nejstarsi": "Jiří Klimek"
+  },
+  {
+   "soutez": "Přebor",
+   "area": 1,
+   "nejmladsi": 18,
+   "nejstarsi": 60,
+   "rozpeti": 42,
+   "jmeno_nejmladsi": "Ema Herichová",
+   "jmeno_nejstarsi": "Jitka Kykalová"
+  }
+ ]
+}
