@@ -59,9 +59,11 @@ body {
 }
 .bignum b {
   display: block;
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  /* menší strop, ať se vejde i sedmimístné číslo s mezerami */
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
   color: var(--accent);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .bignum span { color: var(--ink-dim); font-size: .85rem; }
 
