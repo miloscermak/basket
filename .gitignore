@@ -3,3 +3,5 @@ __pycache__/
 /data/
 *.pyc
 .DS_Store
+gala/
+Programovy_scenar_BR_26.xlsx
