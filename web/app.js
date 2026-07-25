@@ -148,7 +148,7 @@ function tables(o, r) {
 
   $("tbl-snury").innerHTML = table(
     ["Výher", "Tým"],
-    r.snury.slice(0, 8).map((x) => [tdn(x.vyher), td(x.tym + sub(`${x.od} → ${x.do}`))])
+    r.snury.slice(0, 8).map((x) => [tdn(x.vyher), td(x.tym + sub(`${x.soutez} · ${x.od} → ${x.do}`))])
   );
 
   $("tbl-vykony").innerHTML = table(

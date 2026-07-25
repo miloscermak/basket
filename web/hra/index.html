@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DO JEDNADVACETI — basketbalová hra</title>
+<style>
+:root {
+  --bg: #14100d; --card: #1e1813; --ink: #f3ece4; --dim: #b3a698;
+  --accent: #ff8c3a; --line: #322a22; --ok: #6fca6f; --bad: #e05a4e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex; flex-direction: column; align-items: center;
+}
+main { width: 100%; max-width: 520px; padding: 20px 16px 32px; flex: 1; display: flex; flex-direction: column; }
+
+.kicker { color: var(--accent); text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 700; text-align: center; }
+h1 { text-align: center; font-size: 2rem; letter-spacing: -.01em; margin: 6px 0 4px; }
+.sub { color: var(--dim); text-align: center; font-size: .95rem; margin-bottom: 22px; }
+
+.rules { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 18px; }
+.rules li { margin: 8px 0 8px 20px; color: var(--dim); }
+.rules b { color: var(--ink); }
+
+button.big {
+  width: 100%; padding: 16px; border: none; border-radius: 12px;
+  background: var(--accent); color: #1a100e; font-size: 1.15rem; font-weight: 800;
+  cursor: pointer; letter-spacing: .02em;
+}
+button.big:active { transform: scale(.98); }
+
+/* skóre lišta */
+.bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.score { font-size: 1.1rem; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
+.score span { color: var(--dim); font-weight: 400; }
+.fouls { font-size: 1rem; letter-spacing: 3px; }
+
+.qcount { color: var(--dim); font-size: .78rem; text-align: center; margin-bottom: 6px; }
+.question {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px; text-align: center; font-size: 1.12rem; font-weight: 700; margin-bottom: 14px;
+}
+.badge2 {
+  display: inline-block; background: var(--accent); color: #1a100e; border-radius: 999px;
+  font-size: .7rem; font-weight: 800; padding: 3px 10px; margin-top: 8px; text-transform: uppercase; letter-spacing: .08em;
+}
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.opt {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  color: var(--ink); padding: 18px 16px; font-size: 1.02rem; font-weight: 600;
+  cursor: pointer; text-align: left; width: 100%;
+}
+.opt:active { border-color: var(--accent); }
+.vs { text-align: center; color: var(--dim); font-weight: 800; font-size: .8rem; margin: -2px 0; }
+
+.reveal { border-radius: 14px; padding: 16px; margin-top: 14px; border: 1px solid var(--line); background: var(--card); }
+.reveal .verdict { font-weight: 800; font-size: 1.05rem; margin-bottom: 6px; }
+.reveal .verdict.ok { color: var(--ok); }
+.reveal .verdict.bad { color: var(--bad); }
+.reveal p { color: var(--dim); font-size: .92rem; line-height: 1.5; }
+.reveal button { margin-top: 14px; }
+
+.final { text-align: center; padding-top: 8vh; }
+.final .bignum { font-size: 4rem; font-weight: 900; color: var(--accent); }
+.final h2 { margin: 8px 0 6px; }
+.final p { color: var(--dim); margin-bottom: 20px; }
+.final .actions { display: flex; flex-direction: column; gap: 10px; }
+button.ghost { background: none; border: 1px solid var(--line); color: var(--dim); border-radius: 12px; padding: 13px; font-size: 1rem; cursor: pointer; }
+
+footer { color: var(--dim); font-size: .72rem; text-align: center; padding: 0 16px 18px; }
+footer a { color: var(--dim); }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+<main>
+
+<!-- úvodní obrazovka -->
+<section id="intro">
+  <p class="kicker">Česká basketbalová sezóna 2025/26 jako hra</p>
+  <h1>DO JEDNADVACETI</h1>
+  <p class="sub">Všechno jsou skutečná čísla z 18 440 zápasů — od NBL po minižáky.</p>
+  <div class="rules">
+    <li>Uvidíš dvě věci ze sezóny. <b>Ťukni na tu, která je víc.</b></li>
+    <li>Správně = <b>koš za 1 bod</b>. Otázka „za obloukem" = <b>2 body</b>.</li>
+    <li><b>Tři fauly</b> (chyby) a je konec.</li>
+    <li>Kdo dá <b>21</b>, vyhrál — jako ve 3x3.</li>
+  </div>
+  <button class="big" onclick="start()">Rozskok 🏀</button>
+</section>
+
+<!-- herní obrazovka -->
+<section id="game" class="hidden">
+  <div class="bar">
+    <div class="score"><span>skóre&nbsp;</span><b id="score">0</b><span>&nbsp;/&nbsp;21</span></div>
+    <div class="fouls" id="fouls"></div>
+  </div>
+  <p class="qcount" id="qcount"></p>
+  <div class="question"><span id="qtext"></span><br><span id="qbadge" class="badge2 hidden">za obloukem · 2 body</span></div>
+  <div class="opts">
+    <button class="opt" id="optA" onclick="answer(0)"></button>
+    <div class="vs">VS</div>
+    <button class="opt" id="optB" onclick="answer(1)"></button>
+  </div>
+  <div class="reveal hidden" id="reveal">
+    <div class="verdict" id="verdict"></div>
+    <p id="pointa"></p>
+    <button class="big" onclick="next()">Další rozehrávka</button>
+  </div>
+</section>
+
+<!-- závěrečná obrazovka -->
+<section id="final" class="hidden final">
+  <div class="bignum" id="finalScore">0</div>
+  <h2 id="finalTitle"></h2>
+  <p id="finalText"></p>
+  <div class="actions">
+    <button class="big" onclick="share()">Vyzvat souseda ve frontě 📣</button>
+    <button class="ghost" onclick="location.reload()">Hrát znovu</button>
+  </div>
+</section>
+
+</main>
+<footer>Skutečná data sezóny 2025/26: cz.basketball + FIBA LiveStats · <a href="../">celá sezóna v číslech</a></footer>
+
+<script>
+// Otázky: skutečné hodnoty z databáze sezóny 2025/26 (ověřeno 25. 7. 2026).
+// Formát: q = otázka, a/b = možnosti (t text, v hodnota, s zobrazení hodnoty),
+// body = 1 | 2, pointa = vysvětlení po odpovědi.
+const QUESTIONS = [
+ {q:"Kde bylo víc diváků?", body:1,
+  a:{t:"Sedmý zápas finále mužů NBL", v:1400, s:"1 400 diváků"},
+  b:{t:"Zápas žen USK Praha – Žabiny Brno", v:3852, s:"3 852 diváků"},
+  pointa:"Nejnavštěvovanější zápas celé sezóny byl ženský. Přijelo 3 852 lidí."},
+ {q:"Kdo odehrál letos víc zápasů?", body:1,
+  a:{t:"Sedmdesátiletá Anděla Burdová (S.H. Počernice B)", v:5, s:"5 zápasů"},
+  b:{t:"Vít Krejčí za Atlanta Hawks", v:46, s:"46 zápasů"},
+  pointa:"Krejčí stihl za Atlantu 46 zápasů, než ho vyměnili do Portlandu. Paní Burdová jich v 70 letech přidala 5 — a klobouk dolů."},
+ {q:"Kdo je starší?", body:2,
+  a:{t:"Nejstarší aktivní hráč Česka", v:75, s:"75 let (Miloslav Musil)"},
+  b:{t:"Nejstarší aktivní hráčka Česka", v:70, s:"70 let (Anděla Burdová)"},
+  pointa:"Miloslav Musil (75) hraje pražskou 3. třídu — proti osmnáctiletým. Rozdíl generací na jednom hřišti: 57 let."},
+ {q:"Kdo byl letos na palubovce vícekrát?", body:1,
+  a:{t:"Rozhodčí Michal Dub", v:314, s:"314 zápasů"},
+  b:{t:"Nejvytíženější hráč Česka", v:73, s:"73 zápasů (Teodor Malík, 10 let)"},
+  pointa:"Rozhodčí Dub odpískal 314 zápasů. Nejvytíženější hráč je mimochodem desetiletý — Teodor Malík, 73 zápasů v 7 soutěžích."},
+ {q:"Čeho bylo v sezóně víc?", body:1,
+  a:{t:"Hráčů se jménem Novák / Nováková", v:159, s:"159 Nováků"},
+  b:{t:"Zápasů s prodloužením", v:28, s:"28 prodloužení"},
+  pointa:"Nováků a Novákových hrálo 159. Prodloužení bylo jen 28 — a jediné dvojité vyhrálo USK Praha B 95:94."},
+ {q:"Čeho je v českém basketbalu víc?", body:2,
+  a:{t:"Hal a tělocvičen, kde se hrálo", v:373, s:"373 hal"},
+  b:{t:"Rozhodčích, kteří letos pískali", v:650, s:"650 rozhodčích"},
+  pointa:"Rozhodčích je skoro dvakrát víc než hal. A stejně jich je málo — ale to je na jiný večer."},
+ {q:"Kde tvoří trojky větší část střelby?", body:1,
+  a:{t:"Mužská NBL", v:42.7, s:"42,7 % střel"},
+  b:{t:"Ženská ŽBL", v:36.2, s:"36,2 % střel"},
+  pointa:"V NBL letí za tři skoro každá druhá střela z pole. Trojková revoluce dorazila i k nám."},
+ {q:"Co je větší číslo?", body:2,
+  a:{t:"Průměrný rozdíl skóre, o který USK vyhrávalo ligu", v:48.9, s:"+48,9 bodu"},
+  b:{t:"Body Žabin v posledním finálovém zápase", v:49, s:"49 bodů (85:49)"},
+  pointa:"O chlup! USK vyhrávalo v průměru o 48,9 bodu — přesně tolik, kolik Žabiny daly v celém posledním finále. Sezóna 31 výher z 31 zápasů."},
+ {q:"Co je větší číslo?", body:1,
+  a:{t:"Body, které letos padly v českém basketbalu", v:2168646, s:"2 168 646 bodů"},
+  b:{t:"Počet obyvatel Prahy", v:1384000, s:"cca 1 384 000 obyvatel"},
+  pointa:"Přes dva miliony bodů za jednu sezónu. Na každého Pražana by vyšel jeden a půl koše."},
+ {q:"Kdy se hraje víc basketbalu?", body:1,
+  a:{t:"V sobotu dopoledne", v:4258, s:"4 258 zápasů"},
+  b:{t:"V pátek večer", v:1057, s:"1 057 zápasů"},
+  pointa:"Sobotní ráno je chrám českého basketbalu — čtyřikrát víc zápasů než v páteční večer. Rodiče minižáků vědí."},
+ {q:"Kdo dal v jednom zápase U13 víc bodů?", body:1,
+  a:{t:"Třináctiletý Antonín Berka sám", v:92, s:"92 bodů"},
+  b:{t:"Celý tým soupeře dohromady", v:18, s:"18 bodů"},
+  pointa:"Berka dal 92 bodů — pětkrát víc než celý soupeř. Nejvyšší individuální výkon sezóny napříč všemi soutěžemi."},
+ {q:"Čeho bylo víc?", body:2,
+  a:{t:"Smečí Z. Keye (nejlepšího smečaře sezóny)", v:75, s:"75 smečí"},
+  b:{t:"Zápasů s prodloužením v celém Česku", v:28, s:"28 prodloužení"},
+  pointa:"Key nasmečoval 75krát — skoro třikrát víc, než kolik bylo v celé zemi prodloužení."},
+ {q:"Kdo dal víc bodů v koncovkách vyrovnaných zápasů?", body:2,
+  a:{t:"W. Person Jr (Opava)", v:38, s:"38 clutch bodů"},
+  b:{t:"J. Bryant (Pardubice)", v:37, s:"37 clutch bodů"},
+  pointa:"O jediný bod! Person 38, Bryant 37 — dva králové posledních dvou minut. Počítáno z 441 vyrovnaných koncovek sezóny."},
+ {q:"Kdo má víc zápasů v evidenci od roku 1998?", body:2,
+  a:{t:"Pavel Slezák", v:902, s:"902 zápasů"},
+  b:{t:"Luděk Jurečka", v:842, s:"842 zápasů"},
+  pointa:"Slezák vede historickou tabulku s 902 zápasy — a v 41 letech pořád dává přes 22 bodů na zápas v 1. lize."},
+ {q:"Co je větší číslo?", body:2,
+  a:{t:"Sikorů a Sikorových v týmech SBŠ Třinec", v:8, s:"8 Sikorů"},
+  b:{t:"Hráčů v základních pětkách obou týmů", v:10, s:"10 hráčů"},
+  pointa:"Těsně. Ale osm Sikorů v jednom klubu je největší basketbalová rodina Česka — teoreticky skoro celá pětka plus střídačka."},
+ {q:"Čeho je v Česku víc?", body:2,
+  a:{t:"Basketbalových soutěží", v:244, s:"244 soutěží"},
+  b:{t:"Basketbalových klubů", v:321, s:"321 klubů"},
+  pointa:"Klubů je víc než soutěží. Na každou soutěž tak vychází v průměru jen o málo víc než jeden klub — český basket je hodně rozkrájený koláč."},
+ {q:"Co je větší číslo?", body:2,
+  a:{t:"Rozdíl skóre v nejbrutálnějším zápase sezóny", v:202, s:"202 bodů (2:204)"},
+  b:{t:"Součet bodů v sedmém finále NBL", v:165, s:"165 bodů (91:74)"},
+  pointa:"Studánka Pardubice B prohrála 2:204. Ano, dva body za zápas. I to je český basketbal — a hrdinství, že dohráli."},
+ {q:"Čeho bylo víc?", body:2,
+  a:{t:"Zápasů s prodloužením", v:28, s:"28 prodloužení"},
+  b:{t:"Týmů v NBL a ŽBL dohromady", v:22, s:"22 týmů"},
+  pointa:"Prodloužení bylo 28 — víc než všech profesionálních týmů v zemi dohromady."},
+ {q:"Co je větší číslo?", body:1,
+  a:{t:"Českých basketbalistů a basketbalistek se statistikami", v:22112, s:"22 112 hráčů"},
+  b:{t:"Kapacita O2 areny", v:18000, s:"cca 18 000 míst"},
+  pointa:"Kdyby si všichni letošní hráči chtěli sednout do O2 areny, čtyři tisíce z nich zůstanou stát před halou."},
+ {q:"Kterých zápasů bylo letos víc?", body:1,
+  a:{t:"Mládežnických", v:13602, s:"13 602 zápasů"},
+  b:{t:"Dospělých (muži + ženy)", v:4838, s:"4 838 zápasů"},
+  pointa:"Tři čtvrtiny českého basketbalu odehrají děti a mládež. Budoucnost vypadá dobře — aspoň počtem."},
+ {q:"Co je větší číslo u Davida Rojka?", body:1,
+  a:{t:"Jeho věk", v:61, s:"61 let"},
+  b:{t:"Jeho letošní kariérní bodový rekord", v:29, s:"29 bodů"},
+  pointa:"V lednu si jednašedesátiletý Rojko vylepšil kariérní maximum: 29 bodů. Nikdy není pozdě."},
+ {q:"Která šňůra výher byla delší?", body:2,
+  a:{t:"USK Praha v ŽBL (celá sezóna bez porážky)", v:31, s:"31 výher"},
+  b:{t:"Nejdelší mužská šňůra (Žabovřesky, 2. liga)", v:26, s:"26 výher"},
+  pointa:"USK prostě letos neprohrálo: 31 z 31. Nejdelší mužskou šňůru drží Žabovřesky s 26 výhrami ve 2. lize."},
+];
+
+let order = [], idx = 0, score = 0, fouls = 0, current = null, flip = false;
+const $ = (id) => document.getElementById(id);
+
+function start() {
+  order = [...QUESTIONS.keys()].sort(() => Math.random() - 0.5);
+  idx = 0; score = 0; fouls = 0;
+  $("intro").classList.add("hidden");
+  $("game").classList.remove("hidden");
+  show();
+}
+
+function show() {
+  current = QUESTIONS[order[idx]];
+  flip = Math.random() < 0.5; // náhodně prohodit strany
+  $("qtext").textContent = current.q;
+  $("qbadge").classList.toggle("hidden", current.body !== 2);
+  const [oA, oB] = flip ? [current.b, current.a] : [current.a, current.b];
+  $("optA").textContent = oA.t;
+  $("optB").textContent = oB.t;
+  $("optA").disabled = $("optB").disabled = false;
+  $("reveal").classList.add("hidden");
+  $("qcount").textContent = `otázka ${idx + 1}`;
+  updateBar();
+}
+
+function updateBar() {
+  $("score").textContent = score;
+  $("fouls").textContent = "🟥".repeat(fouls) + "⬜".repeat(3 - fouls);
+}
+
+function answer(i) {
+  const picked = (i === 0) !== flip ? current.a : current.b;
+  const other = picked === current.a ? current.b : current.a;
+  const ok = picked.v >= other.v;
+  $("optA").disabled = $("optB").disabled = true;
+  if (ok) score += current.body; else fouls += 1;
+  updateBar();
+  $("verdict").textContent = ok
+    ? (current.body === 2 ? "Koš za dva! ✅" : "Koš! ✅")
+    : "Faul! ❌";
+  $("verdict").className = "verdict " + (ok ? "ok" : "bad");
+  $("pointa").textContent =
+    `${current.a.t}: ${current.a.s} · ${current.b.t}: ${current.b.s}. ${current.pointa}`;
+  $("reveal").classList.remove("hidden");
+  $("reveal").scrollIntoView({behavior: "smooth", block: "end"});
+}
+
+function next() {
+  if (score >= 21) return finish(true);
+  if (fouls >= 3) return finish(false);
+  idx += 1;
+  if (idx >= order.length) return finish(score >= 21);
+  show();
+}
+
+function finish(won) {
+  $("game").classList.add("hidden");
+  $("final").classList.remove("hidden");
+  $("finalScore").textContent = score;
+  if (won) {
+    $("finalTitle").textContent = "Do jednadvaceti! 🏆";
+    $("finalText").textContent = "Vyhrál/a jsi jako Lvi nad USA. Znáš český basketbal líp než většina střídaček.";
+  } else if (fouls >= 3) {
+    $("finalTitle").textContent = "Tři fauly, konec zápasu";
+    $("finalText").textContent = score >= 12
+      ? "Slušný výkon! Ještě jednou a jsi v reprezentaci."
+      : "Český basketbal je záludnější, než vypadá. Revanš?";
+  } else {
+    $("finalTitle").textContent = "Došly otázky!";
+    $("finalText").textContent = "Prošel/a jsi celou sezónu. Příští rok přidáme další.";
+  }
+}
+
+function share() {
+  const text = `Dal/a jsem ${score} bodů ve hře DO JEDNADVACETI — kvízu z reálných dat české basketbalové sezóny. Dáš víc?`;
+  if (navigator.share) {
+    navigator.share({title: "DO JEDNADVACETI", text, url: location.href}).catch(() => {});
+  } else {
+    navigator.clipboard?.writeText(text + " " + location.href);
+    alert("Zkopírováno do schránky!");
+  }
+}
+</script>
+</body>
+</html>

@@ -106,16 +106,24 @@ def main():
             ORDER BY 2 DESC LIMIT 10""")
     ]
 
-    # nejdelší šňůry výher (kterýkoli tým, kterákoli soutěž)
+    # nejdelší šňůry výher — POZOR: klíčovat přes (tým, soutěž), stejná jména
+    # týmů existují ve víc soutěžích (mládežnické kategorie téhož klubu)
     results = defaultdict(list)
+    comp_names = {}
     for row in con.execute("""
-        SELECT date, home, away, home_score, away_score FROM matches
-        WHERE home_score IS NOT NULL AND date IS NOT NULL
-          AND home_score != away_score ORDER BY date"""):
-        results[row["home"]].append((row["date"], row["home_score"] > row["away_score"]))
-        results[row["away"]].append((row["date"], row["away_score"] > row["home_score"]))
+        SELECT m.date, m.home, m.away, m.home_score, m.away_score,
+               c.id comp_id, c.name comp
+        FROM matches m JOIN groups g ON g.id=m.group_id
+        JOIN competitions c ON c.id=g.competition_id
+        WHERE m.home_score IS NOT NULL AND m.date IS NOT NULL
+          AND m.home_score != m.away_score ORDER BY m.date"""):
+        comp_names[row["comp_id"]] = row["comp"]
+        results[(row["home"], row["comp_id"])].append(
+            (row["date"], row["home_score"] > row["away_score"]))
+        results[(row["away"], row["comp_id"])].append(
+            (row["date"], row["away_score"] > row["home_score"]))
     streaks = []
-    for team, games in results.items():
+    for (team, comp_id), games in results.items():
         best = cur = 0
         start = best_start = best_end = None
         for date, won in games:
@@ -127,8 +135,8 @@ def main():
             else:
                 cur, start = 0, None
         if best >= 15:
-            streaks.append({"tym": team, "vyher": best, "od": best_start, "do": best_end,
-                            "zapasu_celkem": len(games)})
+            streaks.append({"tym": team, "soutez": comp_names[comp_id], "vyher": best,
+                            "od": best_start, "do": best_end, "zapasu_celkem": len(games)})
     r["snury"] = sorted(streaks, key=lambda s: -s["vyher"])[:12]
 
     # návštěvnost — top zápasy

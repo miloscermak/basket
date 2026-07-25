@@ -770,88 +770,100 @@
  ],
  "snury": [
   {
-   "tym": "Tygři Praha A",
-   "vyher": 37,
-   "od": "2025-10-04",
-   "do": "2025-11-16",
-   "zapasu_celkem": 143
-  },
-  {
    "tym": "ZVVZ USK Praha",
+   "soutez": "Chance ŽBL",
    "vyher": 31,
    "od": "2025-09-27",
    "do": "2026-04-26",
    "zapasu_celkem": 31
   },
   {
-   "tym": "Sokol Písek Sršni h",
-   "vyher": 29,
-   "od": "2026-02-07",
+   "tym": "BK Lokomotiva Plzeň",
+   "soutez": "Krajský přebor U13M+Ž",
+   "vyher": 28,
+   "od": "2025-09-27",
+   "do": "2026-04-10",
+   "zapasu_celkem": 28
+  },
+  {
+   "tym": "SK Žabovřesky",
+   "soutez": "2. liga mužů",
+   "vyher": 26,
+   "od": "2025-09-20",
+   "do": "2026-05-03",
+   "zapasu_celkem": 26
+  },
+  {
+   "tym": "BVK Holice - KVAL",
+   "soutez": "Smíšený východočeský přebor U12S VP I",
+   "vyher": 26,
+   "od": "2025-09-20",
    "do": "2026-04-19",
-   "zapasu_celkem": 108
+   "zapasu_celkem": 26
+  },
+  {
+   "tym": "BK Bizoni Náchod",
+   "soutez": "Smíšený východočeský přebor U12S VP II",
+   "vyher": 26,
+   "od": "2025-09-20",
+   "do": "2026-04-18",
+   "zapasu_celkem": 26
+  },
+  {
+   "tym": "Tygři Praha A",
+   "soutez": "Přebor",
+   "vyher": 26,
+   "od": "2025-10-04",
+   "do": "2026-03-15",
+   "zapasu_celkem": 26
   },
   {
    "tym": "SK UP BCM Olomouc A",
-   "vyher": 28,
-   "od": "2026-01-22",
+   "soutez": "Středomoravský přebor U11M",
+   "vyher": 24,
+   "od": "2025-09-13",
+   "do": "2026-03-27",
+   "zapasu_celkem": 24
+  },
+  {
+   "tym": "SK UP BCM Olomouc A",
+   "soutez": "Středomoravský přebor U13M",
+   "vyher": 24,
+   "od": "2025-09-13",
    "do": "2026-04-13",
-   "zapasu_celkem": 87
+   "zapasu_celkem": 24
   },
   {
-   "tym": "Basket Opava 2010",
-   "vyher": 23,
-   "od": "2025-09-27",
-   "do": "2025-11-08",
-   "zapasu_celkem": 122
+   "tym": "BK Snakes Orlová",
+   "soutez": "Oblastní přebor mladších minižáků U12",
+   "vyher": 24,
+   "od": "2025-09-20",
+   "do": "2026-05-17",
+   "zapasu_celkem": 24
   },
   {
-   "tym": "BK Lokomotiva Plzeň",
-   "vyher": 21,
-   "od": "2026-01-11",
-   "do": "2026-02-15",
-   "zapasu_celkem": 139
-  },
-  {
-   "tym": "BA Nymburk U13M",
-   "vyher": 18,
-   "od": "2025-09-14",
-   "do": "2026-03-08",
+   "tym": "Válečníci Děčín A",
+   "soutez": "Oblastní přebor U12M",
+   "vyher": 24,
+   "od": "2025-09-20",
+   "do": "2026-03-28",
    "zapasu_celkem": 24
   },
   {
    "tym": "SBŠ Ostrava bílá",
-   "vyher": 18,
-   "od": "2025-10-18",
-   "do": "2026-02-22",
-   "zapasu_celkem": 40
+   "soutez": "Oblastní přebor starších minižákyň U13",
+   "vyher": 24,
+   "od": "2025-09-26",
+   "do": "2026-04-25",
+   "zapasu_celkem": 24
   },
   {
-   "tym": "Academy Ostrava",
-   "vyher": 17,
-   "od": "2025-11-08",
-   "do": "2026-02-07",
-   "zapasu_celkem": 56
-  },
-  {
-   "tym": "Vlčice Žďár",
-   "vyher": 17,
-   "od": "2025-12-14",
-   "do": "2026-02-17",
-   "zapasu_celkem": 86
-  },
-  {
-   "tym": "Sokol Hradec Králové",
-   "vyher": 17,
-   "od": "2025-11-19",
-   "do": "2025-12-06",
-   "zapasu_celkem": 238
-  },
-  {
-   "tym": "BA Nymburk U11M",
-   "vyher": 17,
-   "od": "2025-09-14",
-   "do": "2026-03-21",
-   "zapasu_celkem": 22
+   "tym": "BK Příbor",
+   "soutez": "Oblastní přebor mladších minižáků U12",
+   "vyher": 24,
+   "od": "2025-09-27",
+   "do": "2026-05-05",
+   "zapasu_celkem": 24
   }
  ],
  "navstevnost_top": [
