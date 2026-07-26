@@ -104,9 +104,12 @@ function updateHud() {
   $("time").textContent = Math.ceil(timeLeft);
 }
 
-// ovládání prakem (pointer events fungují pro myš i dotyk)
+// ovládání prakem (pointer events fungují pro myš i dotyk);
+// setPointerCapture zajistí, že tažení funguje i mimo plátno
+const AIM_K = 8.5, AIM_CAP = 1400;
 canvas.addEventListener("pointerdown", (e) => {
   if (!running || ball.flying) return;
+  canvas.setPointerCapture(e.pointerId);
   aiming = true;
   aimStart = pt(e); aimNow = aimStart;
 });
@@ -117,8 +120,7 @@ window.addEventListener("pointerup", () => {
   const dx = aimStart.x - aimNow.x, dy = aimStart.y - aimNow.y;
   const len = Math.hypot(dx, dy);
   if (len < 12) return;                 // moc krátké tažení = nic
-  const k = 5.2, cap = 1350;
-  const v = Math.min(len * k, cap) / len;
+  const v = Math.min(len * AIM_K, AIM_CAP) / len;
   ball.vx = dx * v; ball.vy = dy * v;
   ball.flying = true;
   if (!started) { started = true; }
@@ -228,7 +230,7 @@ function draw() {
     const dx = aimStart.x - aimNow.x, dy = aimStart.y - aimNow.y;
     const len = Math.hypot(dx, dy);
     if (len > 12) {
-      const k = 5.2, cap = 1350, v = Math.min(len * k, cap) / len;
+      const v = Math.min(len * AIM_K, AIM_CAP) / len;
       let px = ball.x, py = ball.y, pvx = dx * v, pvy = dy * v;
       ctx.fillStyle = "rgba(255,140,58,.5)";
       for (let i = 0; i < 7; i++) {
