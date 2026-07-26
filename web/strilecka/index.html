@@ -96,8 +96,13 @@ let ball, player, defender, score, timeLeft, running, started, aiming, aimStart,
 
 function bestKey() { return "strilecka_best_" + mode; }
 
-function resetDefender() {
-  defender = { x: W - 12, active: false, jumping: false, jumpT: 0 };
+function spawnDefender(aroundX) {
+  // obránce se objeví náhodně MEZI zvoleným místem a košem
+  // (min. ~1,5 m od střelce, ať není nefér, a kousek před košem)
+  const from = Math.min((aroundX ?? player.targetX) + 1.5 * SCALE, HOOP_X - 60);
+  const to = HOOP_X - 50;
+  defender = { x: from + Math.random() * Math.max(to - from, 0),
+               active: false, jumping: false, jumpT: 0 };
 }
 
 function resetBallAtPlayer() {
@@ -112,7 +117,7 @@ function newAttempt() {
   if (mode === "klasika") player.x = 70 + Math.random() * 450;
   player.targetX = player.x;
   resetBallAtPlayer();
-  resetDefender();
+  spawnDefender(player.x);
 }
 
 function start(m) {
@@ -145,6 +150,7 @@ canvas.addEventListener("pointerdown", (e) => {
   // v režimu s obráncem: ťuknutí daleko od míče = přesun na nové místo
   if (mode === "obrance" && Math.hypot(p.x - ball.x, p.y - ball.y) > 75) {
     player.targetX = Math.max(55, Math.min(HOOP_X - 80, p.x));
+    spawnDefender(player.targetX);   // nové místo = obránce se přeskupí
     return;
   }
   canvas.setPointerCapture(e.pointerId);
@@ -391,7 +397,7 @@ function loop(now) {
 
 fit();
 player = { x: 260, targetX: 260 };
-resetDefender(); resetBallAtPlayer();
+spawnDefender(260); resetBallAtPlayer();
 score = 0; timeLeft = 60; running = false; started = false; popups = [];
 requestAnimationFrame(loop);
 </script>
