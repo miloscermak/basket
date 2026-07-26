@@ -109,9 +109,10 @@ let ball, player, defender, score, timeLeft, running, started, aiming, aimStart,
 function bestKey() { return "strilecka_best_" + mode; }
 
 function spawnDefender(aroundX) {
-  // obránce se objeví náhodně MEZI zvoleným místem a košem
-  // (min. ~1,5 m od střelce, ať není nefér, a kousek před košem)
-  const from = Math.min((aroundX ?? player.targetX) + 1.5 * SCALE, HOOP_X - 60);
+  // obránce se objeví náhodně mezi střelcem a košem, ale nikdy blíž ke střelci
+  // než v POLOVINĚ jeho vzdálenosti od koše — ať je vždycky prostor na oblouk
+  const px = aroundX ?? player.x;
+  const from = Math.min(px + (HOOP_X - px) / 2, HOOP_X - 60);
   const to = HOOP_X - 50;
   defender = { x: from + Math.random() * Math.max(to - from, 0),
                active: false, jumping: false, jumpT: 0 };
