@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STŘÍLEČKA — basketbalová minuta</title>
+<style>
+:root { --bg:#14100d; --card:#1e1813; --ink:#f3ece4; --dim:#b3a698; --accent:#ff8c3a; --line:#322a22; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { height:100%; }
+body { background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; display:flex; flex-direction:column; align-items:center; }
+main { width:100%; max-width:640px; padding:14px 12px 20px; flex:1; display:flex; flex-direction:column; }
+.kicker { color:var(--accent); text-transform:uppercase; letter-spacing:.14em; font-size:.7rem; font-weight:700; text-align:center; }
+h1 { text-align:center; font-size:1.6rem; margin:4px 0 10px; letter-spacing:-.01em; }
+#wrap { position:relative; }
+canvas { width:100%; display:block; background:linear-gradient(#191410,#14100d 70%); border:1px solid var(--line); border-radius:14px; touch-action:none; }
+.hud { position:absolute; top:10px; left:14px; right:14px; display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; pointer-events:none; }
+.hud .t { color:var(--dim); }
+.hud b { color:var(--accent); font-variant-numeric:tabular-nums; }
+.overlay { position:absolute; inset:0; background:rgba(20,16,13,.88); border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; }
+.overlay h2 { font-size:1.5rem; margin-bottom:6px; }
+.overlay .big { font-size:3.2rem; font-weight:900; color:var(--accent); }
+.overlay p { color:var(--dim); margin:8px 0 16px; font-size:.95rem; max-width:400px; }
+.overlay button { padding:13px 26px; border:none; border-radius:12px; background:var(--accent); color:#1a100e; font-size:1.05rem; font-weight:800; cursor:pointer; margin:4px; }
+.overlay button.ghost { background:none; border:1px solid var(--line); color:var(--dim); }
+footer { color:var(--dim); font-size:.72rem; text-align:center; padding:10px 16px 16px; }
+footer a { color:var(--dim); }
+.hidden { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Zabij minutu jako profík</p>
+  <h1>STŘÍLEČKA</h1>
+  <div id="wrap">
+    <canvas id="c"></canvas>
+    <div class="hud"><div>skóre <b id="score">0</b></div><div class="t">čas <b id="time">60</b></div></div>
+    <div class="overlay" id="intro">
+      <h2>Natáhni a pusť 🏀</h2>
+      <p>Táhni prstem (nebo myší) od míče dozadu jako prakem a pusť.
+         Koš = 2 body, čistý koš bez obroučky = 3. Máš 60 vteřin — čas běží od prvního výstřelu.</p>
+      <button onclick="hideIntro()">Jdu na to</button>
+    </div>
+    <div class="overlay hidden" id="end">
+      <div class="big" id="endScore">0</div>
+      <h2 id="endTitle"></h2>
+      <p id="endText"></p>
+      <div>
+        <button onclick="restart()">Hrát znovu</button>
+        <button class="ghost" onclick="share()">Vyzvat souseda 📣</button>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Součást webu <a href="../">Česká basketbalová sezóna v datech</a> · <a href="../hra/">zkus i kvíz DO JEDNADVACETI</a></footer>
+
+<script>
+// STŘÍLEČKA — jednoduchá fyzikální střílečka na koš (canvas, 60 s).
+const W = 800, H = 500;               // logické rozměry hřiště
+const GRAV = 1500;                     // gravitace px/s²
+const BALL_R = 16;
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+const $ = (id) => document.getElementById(id);
+
+let dpr = 1;
+function fit() {
+  dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth;
+  canvas.width = w * dpr;
+  canvas.height = w * (H / W) * dpr;
+}
+window.addEventListener("resize", () => fit());
+
+// stav hry
+let ball, hoop, score, timeLeft, running, started, aiming, aimStart, aimNow, flight;
+let best = +localStorage.getItem("strilecka_best") || 0;
+
+function resetBall() {
+  ball = { x: W * 0.16, y: H - 70, vx: 0, vy: 0, flying: false,
+           touched: false, scored: false, prevY: 0 };
+  flight = null;
+}
+
+function newHoop() {
+  hoop = {
+    x: W * (0.5 + Math.random() * 0.32),
+    y: H * (0.28 + Math.random() * 0.3),
+    r: 34,                              // poloměr obroučky (vnitřní průměr)
+  };
+}
+
+function restart() {
+  score = 0; timeLeft = 60; running = true; started = false;
+  resetBall(); newHoop();
+  $("end").classList.add("hidden");
+  updateHud();
+}
+
+function hideIntro() { $("intro").classList.add("hidden"); }
+
+function updateHud() {
+  $("score").textContent = score;
+  $("time").textContent = Math.ceil(timeLeft);
+}
+
+// ovládání prakem (pointer events fungují pro myš i dotyk)
+canvas.addEventListener("pointerdown", (e) => {
+  if (!running || ball.flying) return;
+  aiming = true;
+  aimStart = pt(e); aimNow = aimStart;
+});
+canvas.addEventListener("pointermove", (e) => { if (aiming) aimNow = pt(e); });
+window.addEventListener("pointerup", () => {
+  if (!aiming) return;
+  aiming = false;
+  const dx = aimStart.x - aimNow.x, dy = aimStart.y - aimNow.y;
+  const len = Math.hypot(dx, dy);
+  if (len < 12) return;                 // moc krátké tažení = nic
+  const k = 5.2, cap = 1350;
+  const v = Math.min(len * k, cap) / len;
+  ball.vx = dx * v; ball.vy = dy * v;
+  ball.flying = true;
+  if (!started) { started = true; }
+});
+
+function pt(e) {
+  const r = canvas.getBoundingClientRect();
+  return { x: ((e.clientX - r.left) / r.width) * W,
+           y: ((e.clientY - r.top) / r.height) * H };
+}
+
+// fyzika
+function step(dt) {
+  if (running && started) {
+    timeLeft -= dt;
+    if (timeLeft <= 0) { timeLeft = 0; return end(); }
+  }
+  if (!ball.flying) return;
+  ball.prevY = ball.y;
+  ball.vy += GRAV * dt;
+  ball.x += ball.vx * dt;
+  ball.y += ball.vy * dt;
+
+  const rimL = { x: hoop.x - hoop.r, y: hoop.y };
+  const rimR = { x: hoop.x + hoop.r, y: hoop.y };
+  // deska za košem
+  const bx = hoop.x + hoop.r + 14;
+  if (ball.vx > 0 && ball.x + BALL_R > bx && ball.x < bx + 10 &&
+      ball.y > hoop.y - 110 && ball.y < hoop.y + 30) {
+    ball.x = bx - BALL_R; ball.vx *= -0.6; ball.touched = true;
+  }
+  // odrazy od konců obroučky
+  for (const rim of [rimL, rimR]) {
+    const dx = ball.x - rim.x, dy = ball.y - rim.y;
+    const d = Math.hypot(dx, dy);
+    if (d < BALL_R + 5 && d > 0.01) {
+      const nx = dx / d, ny = dy / d;
+      const dot = ball.vx * nx + ball.vy * ny;
+      if (dot < 0) {
+        ball.vx -= 2 * dot * nx; ball.vy -= 2 * dot * ny;
+        ball.vx *= 0.65; ball.vy *= 0.65;
+        ball.x = rim.x + nx * (BALL_R + 5.2);
+        ball.y = rim.y + ny * (BALL_R + 5.2);
+        ball.touched = true;
+      }
+    }
+  }
+  // koš: míč letí dolů skrz rovinu obroučky mezi jejími konci
+  if (!ball.scored && ball.vy > 0 && ball.prevY < hoop.y && ball.y >= hoop.y &&
+      ball.x > rimL.x + BALL_R * 0.4 && ball.x < rimR.x - BALL_R * 0.4) {
+    ball.scored = true;
+    score += ball.touched ? 2 : 3;
+    updateHud();
+    setTimeout(() => { resetBall(); newHoop(); }, 350);
+  }
+  // podlaha a okraje → nový míč
+  if (ball.y > H + BALL_R * 2 || ball.x < -BALL_R * 3 || ball.x > W + BALL_R * 3) {
+    if (!ball.scored) resetBall(); // po koši už reset naplánovaný
+  }
+}
+
+function end() {
+  running = false;
+  if (score > best) { best = score; localStorage.setItem("strilecka_best", best); }
+  $("endScore").textContent = score;
+  $("endTitle").textContent =
+    score >= 30 ? "Jsi z NBA? 🔥" :
+    score >= 18 ? "Solidní směna!" :
+    score >= 8 ? "Slušná rozcvička" : "Rozhodčí to viděl jinak";
+  $("endText").textContent = `Tvůj rekord: ${best} bodů. Koš za 2, čistý za 3 — a fronta na šunku už se možná zkrátila.`;
+  $("end").classList.remove("hidden");
+}
+
+function share() {
+  const text = `Dal/a jsem ${score} bodů za minutu ve STŘÍLEČCE. Dáš víc?`;
+  if (navigator.share) navigator.share({ title: "STŘÍLEČKA", text, url: location.href }).catch(() => {});
+  else { navigator.clipboard?.writeText(text + " " + location.href); alert("Zkopírováno!"); }
+}
+
+// vykreslení
+function draw() {
+  const s = canvas.width / W;
+  ctx.setTransform(s, 0, 0, s, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  // podlaha
+  ctx.strokeStyle = "#322a22"; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(0, H - 30); ctx.lineTo(W, H - 30); ctx.stroke();
+
+  // deska + obroučka + síťka
+  const bx = hoop.x + hoop.r + 14;
+  ctx.strokeStyle = "#8a7a68"; ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.moveTo(bx + 4, hoop.y - 110); ctx.lineTo(bx + 4, hoop.y + 20); ctx.stroke();
+  ctx.strokeStyle = "#ff8c3a"; ctx.lineWidth = 5;
+  ctx.beginPath(); ctx.moveTo(hoop.x - hoop.r, hoop.y); ctx.lineTo(hoop.x + hoop.r, hoop.y); ctx.stroke();
+  ctx.strokeStyle = "rgba(243,236,228,.35)"; ctx.lineWidth = 1.5;
+  for (let i = 0; i <= 4; i++) {
+    const t = i / 4;
+    ctx.beginPath();
+    ctx.moveTo(hoop.x - hoop.r + t * 2 * hoop.r, hoop.y);
+    ctx.lineTo(hoop.x - hoop.r * 0.55 + t * 1.1 * hoop.r, hoop.y + 38);
+    ctx.stroke();
+  }
+
+  // trajektorie při míření
+  if (aiming) {
+    const dx = aimStart.x - aimNow.x, dy = aimStart.y - aimNow.y;
+    const len = Math.hypot(dx, dy);
+    if (len > 12) {
+      const k = 5.2, cap = 1350, v = Math.min(len * k, cap) / len;
+      let px = ball.x, py = ball.y, pvx = dx * v, pvy = dy * v;
+      ctx.fillStyle = "rgba(255,140,58,.5)";
+      for (let i = 0; i < 7; i++) {
+        for (let j = 0; j < 5; j++) { pvy += GRAV * 0.016; px += pvx * 0.016; py += pvy * 0.016; }
+        ctx.beginPath(); ctx.arc(px, py, 5 - i * 0.5, 0, 7); ctx.fill();
+      }
+    }
+  }
+
+  // míč
+  ctx.fillStyle = "#ff8c3a";
+  ctx.beginPath(); ctx.arc(ball.x, ball.y, BALL_R, 0, 7); ctx.fill();
+  ctx.strokeStyle = "#14100d"; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(ball.x, ball.y, BALL_R, 0, 7); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(ball.x - BALL_R, ball.y); ctx.lineTo(ball.x + BALL_R, ball.y); ctx.stroke();
+  ctx.beginPath(); ctx.arc(ball.x, ball.y - BALL_R, BALL_R, 0.35, Math.PI - 0.35); ctx.stroke();
+}
+
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min((now - last) / 1000, 0.033);
+  last = now;
+  step(dt);
+  if (running) updateHud();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+fit(); restart(); requestAnimationFrame(loop);
+</script>
+</body>
+</html>

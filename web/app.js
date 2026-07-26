@@ -32,7 +32,7 @@ function bignums(o) {
     [o.zapasu, "odehraných zápasů"],
     [o.hracu_se_statistikami, "hráčů a hráček ve statistikách"],
     [o.soutezi, "soutěží"],
-    [o.hal, "hal a tělocvičen"],
+    [o.nejtesnejsich_o1, "zápasů rozhodl jediný bod"],
     [o.rozhodcich_celkem, "rozhodčích"],
   ];
   $("bignums").innerHTML = items
@@ -113,8 +113,11 @@ function homeAdvantage(o) {
 function curiosities(o, r) {
   const nv = o.nejvyssi_vyhra[0];
   const nb = o.nejvic_bodu[0];
+  const sobotaDopo = o.heatmapa
+    .filter((h) => h.den === 6 && h.hodina >= 8 && h.hodina <= 12)
+    .reduce((s, h) => s + h.n, 0);
   const cards = [
-    [fmt.format(o.nejtesnejsich_o1), "zápasů rozhodl jediný bod"],
+    [fmt.format(sobotaDopo), "zápasů se hrálo o sobotních dopoledních — chrám českého basketbalu"],
     [r.prodlouzeni.length, "zápasů došlo do prodloužení — jediné dvojité vyhrálo USK Praha B 95:94"],
     [`+${nv.rozdil}`, `nejvyšší výhra: ${nv.home} – ${nv.away} ${nv.home_score}:${nv.away_score} (${nv.soutez})`],
     [fmt.format(nb.soucet), `bodů padlo v jednom zápase: ${nb.home} – ${nb.away} ${nb.home_score}:${nb.away_score}`],
