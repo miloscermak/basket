@@ -27,6 +27,8 @@ canvas { width:100%; display:block; background:linear-gradient(#191410,#14100d 7
          font-size:.9rem; text-align:left; }
 .stats span { color:var(--dim); }
 .stats b { color:var(--ink); text-align:right; font-variant-numeric:tabular-nums; }
+.legend { color:var(--dim); font-size:.78rem; line-height:1.5; margin-top:10px; text-align:center; }
+.legend b { color:var(--ink); }
 footer { color:var(--dim); font-size:.72rem; text-align:center; padding:10px 16px 16px; }
 footer a { color:var(--dim); }
 .hidden { display:none !important; }
@@ -62,6 +64,9 @@ footer a { color:var(--dim); }
       </div>
     </div>
   </div>
+  <p class="legend"><b>Návod:</b> táhni od míče dozadu a pusť — šipka ukazuje směr a sílu střely
+     (u stropu síly se objeví MAX). V režimu s obráncem si ťuknutím na palubovku vybíráš místo
+     střelby. Máš minutu od prvního výstřelu — a pozor na bloky.</p>
 </main>
 <footer>Součást webu <a href="../">Česká basketbalová sezóna v datech</a> · <a href="../hra/">zkus i kvíz DO JEDNADVACETI</a></footer>
 
@@ -396,6 +401,13 @@ function draw() {
       ctx.moveTo(ex, ey);
       ctx.lineTo(ex - 14 * Math.cos(a + 0.4), ey - 14 * Math.sin(a + 0.4));
       ctx.stroke();
+      // na stropu síly to řekneme naplno, ať delší tažení nemate
+      if (frac >= 0.999) {
+        ctx.fillStyle = "#ff8c3a";
+        ctx.font = "800 16px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("MAX", ex + ux * 22, ey + uy * 22 + 5);
+      }
     }
   }
 
