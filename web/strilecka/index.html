@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>STŘÍLEČKA — basketbalová minuta</title>
 <style>
-:root { --bg:#14100d; --card:#1e1813; --ink:#f3ece4; --dim:#b3a698; --accent:#ff8c3a; --line:#322a22; }
+:root { --bg:#14100d; --card:#1e1813; --ink:#f3ece4; --dim:#b3a698; --accent:#ff8c3a; --line:#322a22; --bad:#d46a5e; }
 * { box-sizing:border-box; margin:0; padding:0; }
 html,body { height:100%; }
 body { background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; display:flex; flex-direction:column; align-items:center; }
@@ -17,11 +17,11 @@ canvas { width:100%; display:block; background:linear-gradient(#191410,#14100d 7
 .hud { position:absolute; top:10px; left:14px; right:14px; display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; pointer-events:none; }
 .hud .t { color:var(--dim); }
 .hud b { color:var(--accent); font-variant-numeric:tabular-nums; }
-.overlay { position:absolute; inset:0; background:rgba(20,16,13,.88); border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; }
+.overlay { position:absolute; inset:0; background:rgba(20,16,13,.9); border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; }
 .overlay h2 { font-size:1.5rem; margin-bottom:6px; }
 .overlay .big { font-size:3.2rem; font-weight:900; color:var(--accent); }
-.overlay p { color:var(--dim); margin:8px 0 16px; font-size:.95rem; max-width:400px; }
-.overlay button { padding:13px 26px; border:none; border-radius:12px; background:var(--accent); color:#1a100e; font-size:1.05rem; font-weight:800; cursor:pointer; margin:4px; }
+.overlay p { color:var(--dim); margin:8px 0 16px; font-size:.92rem; max-width:420px; }
+.overlay button { padding:13px 22px; border:none; border-radius:12px; background:var(--accent); color:#1a100e; font-size:1.02rem; font-weight:800; cursor:pointer; margin:4px; }
 .overlay button.ghost { background:none; border:1px solid var(--line); color:var(--dim); }
 footer { color:var(--dim); font-size:.72rem; text-align:center; padding:10px 16px 16px; }
 footer a { color:var(--dim); }
@@ -37,10 +37,14 @@ footer a { color:var(--dim); }
     <div class="hud"><div>skóre <b id="score">0</b></div><div class="t">čas <b id="time">60</b></div></div>
     <div class="overlay" id="intro">
       <h2>Natáhni a pusť 🏀</h2>
-      <p>Táhni prstem (nebo myší) od míče dozadu jako prakem a pusť.
-         Koš = <b>2 body</b>, zpoza trojkové čáry <b>3</b>, čistý koš bez obroučky <b>+1</b>.
-         Po každé střele se přesuneš. Máš 60 vteřin — čas běží od prvního výstřelu.</p>
-      <button onclick="hideIntro()">Jdu na to</button>
+      <p>Táhni od míče dozadu jako prakem a pusť. Koš = <b>2 body</b>, zpoza trojkové čáry <b>3</b>,
+         čistý koš bez obroučky <b>+1</b>. Máš 60 vteřin od prvního výstřelu.</p>
+      <p><b>S obráncem:</b> místo střely si vybíráš ťuknutím na palubovku — ale jakmile začneš mířit,
+         od základní čáry vybíhá obránce. Kdo dlouho míří, tomu střelu zblokuje.</p>
+      <div>
+        <button onclick="start('klasika')">Klasika</button>
+        <button onclick="start('obrance')">S obráncem 😈</button>
+      </div>
     </div>
     <div class="overlay hidden" id="end">
       <div class="big" id="endScore">0</div>
@@ -48,6 +52,7 @@ footer a { color:var(--dim); }
       <p id="endText"></p>
       <div>
         <button onclick="restart()">Hrát znovu</button>
+        <button class="ghost" onclick="showIntro()">Změnit režim</button>
         <button class="ghost" onclick="share()">Vyzvat souseda 📣</button>
       </div>
     </div>
@@ -56,18 +61,24 @@ footer a { color:var(--dim); }
 <footer>Součást webu <a href="../">Česká basketbalová sezóna v datech</a> · <a href="../hra/">zkus i kvíz DO JEDNADVACETI</a></footer>
 
 <script>
-// STŘÍLEČKA — fyzikální střílečka na koš v reálných proporcích:
-// 1 m = 70 px, koš 3,05 m, hráč 2 m, trojka 6,75 m od koše.
+// STŘÍLEČKA — reálné proporce: 1 m = 70 px, koš 3,05 m, hráč 2 m, trojka 6,75 m.
+// Režim "obrance": místo střely vybíráš ťuknutím, při míření vybíhá obránce a blokuje.
 const W = 800, H = 500;
 const SCALE = 70;
 const FLOOR = H - 30;
 const GRAV = 1500;
 const BALL_R = 14;
 const HOOP_X = 690;
-const RIM_Y = FLOOR - 3.05 * SCALE;      // ~256: obroučka ve 3,05 m
+const RIM_Y = FLOOR - 3.05 * SCALE;
 const RIM_R = 30;
-const PLAYER_H = 2.0 * SCALE;            // 140: dvoumetrový střelec
-const THREE_X = HOOP_X - 6.75 * SCALE;   // ~218: trojková čára
+const PLAYER_H = 2.0 * SCALE;
+const THREE_X = HOOP_X - 6.75 * SCALE;
+const AIM_K = 8.5, AIM_CAP = 1400;
+// obránce
+const DEF_SPEED = 300;                    // px/s výběhu
+const DEF_REACH = 2.55 * SCALE;           // dosah rukou ve stoje
+const DEF_JUMP = 0.75 * SCALE;            // výška výskoku
+const DEF_JUMP_T = 0.55;                  // délka výskoku v sekundách
 
 const canvas = document.getElementById("c");
 const ctx = canvas.getContext("2d");
@@ -80,40 +91,66 @@ function fit() {
 }
 window.addEventListener("resize", fit);
 
-let ball, player, score, timeLeft, running, started, aiming, aimStart, aimNow, popups;
-let best = +localStorage.getItem("strilecka_best") || 0;
+let mode = "klasika";
+let ball, player, defender, score, timeLeft, running, started, aiming, aimStart, aimNow, popups;
 
-function movePlayer() {
-  // nová pozice po každé střele; zóna sahá od hluboké trojky po podkošovou
-  player = { x: 70 + Math.random() * 450 };
+function bestKey() { return "strilecka_best_" + mode; }
+
+function resetDefender() {
+  defender = { x: W - 12, active: false, jumping: false, jumpT: 0 };
+}
+
+function resetBallAtPlayer() {
   ball = {
-    x: player.x + 16, y: FLOOR - PLAYER_H - 18,   // míč nad hlavou střelce
+    x: player.x + 16, y: FLOOR - PLAYER_H - 18,
     vx: 0, vy: 0, flying: false,
-    touched: false, scored: false, prevY: 0, is3: false,
+    touched: false, scored: false, blocked: false, prevY: 0, is3: false,
   };
+}
+
+function newAttempt() {
+  if (mode === "klasika") player.x = 70 + Math.random() * 450;
+  player.targetX = player.x;
+  resetBallAtPlayer();
+  resetDefender();
+}
+
+function start(m) {
+  mode = m;
+  $("intro").classList.add("hidden");
+  restart();
 }
 
 function restart() {
   score = 0; timeLeft = 60; running = true; started = false; popups = [];
-  movePlayer();
+  player = { x: 260, targetX: 260 };
+  newAttempt();
   $("end").classList.add("hidden");
   updateHud();
 }
 
-function hideIntro() { $("intro").classList.add("hidden"); }
+function showIntro() {
+  $("end").classList.add("hidden");
+  $("intro").classList.remove("hidden");
+}
 
 function updateHud() {
   $("score").textContent = score;
   $("time").textContent = Math.ceil(timeLeft);
 }
 
-// prak: setPointerCapture drží tažení i mimo plátno
-const AIM_K = 8.5, AIM_CAP = 1400;
 canvas.addEventListener("pointerdown", (e) => {
   if (!running || ball.flying) return;
+  const p = pt(e);
+  // v režimu s obráncem: ťuknutí daleko od míče = přesun na nové místo
+  if (mode === "obrance" && Math.hypot(p.x - ball.x, p.y - ball.y) > 75) {
+    player.targetX = Math.max(55, Math.min(HOOP_X - 80, p.x));
+    return;
+  }
   canvas.setPointerCapture(e.pointerId);
   aiming = true;
-  aimStart = pt(e); aimNow = aimStart;
+  aimStart = p; aimNow = p;
+  if (mode === "obrance") defender.active = true;   // obránce vybíhá!
 });
 canvas.addEventListener("pointermove", (e) => { if (aiming) aimNow = pt(e); });
 window.addEventListener("pointerup", () => {
@@ -124,9 +161,10 @@ window.addEventListener("pointerup", () => {
   if (len < 12) return;
   const v = Math.min(len * AIM_K, AIM_CAP) / len;
   ball.vx = dx * v; ball.vy = dy * v;
-  ball.is3 = ball.x < THREE_X;          // trojka se počítá z místa výstřelu
+  ball.is3 = ball.x < THREE_X;
   ball.flying = true;
   started = true;
+  if (mode === "obrance" && defender.active) { defender.jumping = true; defender.jumpT = 0; }
 });
 
 function pt(e) {
@@ -135,27 +173,63 @@ function pt(e) {
            y: ((e.clientY - r.top) / r.height) * H };
 }
 
+function defenderHandY() {
+  // výška rukou: ve stoje dosah, ve výskoku sinusový oblouk navíc
+  const jump = defender.jumping
+    ? DEF_JUMP * Math.sin(Math.PI * Math.min(defender.jumpT / DEF_JUMP_T, 1))
+    : 0;
+  return FLOOR - DEF_REACH - jump;
+}
+
 function step(dt) {
   if (running && started) {
     timeLeft -= dt;
     if (timeLeft <= 0) { timeLeft = 0; return end(); }
   }
   popups = popups.filter((p) => (p.t -= dt) > 0);
+
+  // chůze hráče na vybrané místo (jen když míč neletí)
+  if (!ball.flying && player.x !== player.targetX) {
+    const d = player.targetX - player.x;
+    const stepX = Math.sign(d) * Math.min(Math.abs(d), 420 * dt);
+    player.x += stepX;
+    resetBallAtPlayer();
+  }
+
+  // obránce běží k hráči; při výskoku dobíhá setrvačností
+  if (defender.active) {
+    const stopX = player.x + 34;
+    if (!defender.jumping && defender.x > stopX) {
+      defender.x = Math.max(stopX, defender.x - DEF_SPEED * dt);
+    }
+    if (defender.jumping) defender.jumpT += dt;
+  }
+
   if (!ball.flying) return;
   ball.prevY = ball.y;
   ball.vy += GRAV * dt;
   ball.x += ball.vx * dt;
   ball.y += ball.vy * dt;
 
+  // BLOK: míč v zóně rukou vyskočeného obránce
+  if (mode === "obrance" && defender.jumping && !ball.blocked &&
+      defender.jumpT < DEF_JUMP_T) {
+    const hy = defenderHandY();
+    if (Math.abs(ball.x - defender.x) < 24 && ball.y - BALL_R < hy + 46 && ball.y + BALL_R > hy - 8) {
+      ball.blocked = true;
+      ball.vx = -Math.abs(ball.vx) * 0.35;
+      ball.vy = Math.max(ball.vy * 0.2, 60);
+      popups.push({ text: "BLOK! 🚫", x: defender.x, y: hy - 30, t: 1.1 });
+    }
+  }
+
   const rimL = { x: HOOP_X - RIM_R, y: RIM_Y };
   const rimR = { x: HOOP_X + RIM_R, y: RIM_Y };
-  // deska
   const bx = HOOP_X + RIM_R + 14;
   if (ball.vx > 0 && ball.x + BALL_R > bx && ball.x < bx + 10 &&
       ball.y > RIM_Y - 110 && ball.y < RIM_Y + 30) {
     ball.x = bx - BALL_R; ball.vx *= -0.6; ball.touched = true;
   }
-  // odrazy od obroučky
   for (const rim of [rimL, rimR]) {
     const dx = ball.x - rim.x, dy = ball.y - rim.y;
     const d = Math.hypot(dx, dy);
@@ -171,8 +245,8 @@ function step(dt) {
       }
     }
   }
-  // koš
-  if (!ball.scored && ball.vy > 0 && ball.prevY < RIM_Y && ball.y >= RIM_Y &&
+  if (!ball.scored && !ball.blocked && ball.vy > 0 &&
+      ball.prevY < RIM_Y && ball.y >= RIM_Y &&
       ball.x > rimL.x + BALL_R * 0.4 && ball.x < rimR.x - BALL_R * 0.4) {
     ball.scored = true;
     const pts = (ball.is3 ? 3 : 2) + (ball.touched ? 0 : 1);
@@ -180,41 +254,50 @@ function step(dt) {
     popups.push({ text: ball.touched ? `+${pts}` : `ČISTÝ! +${pts}`,
                   x: HOOP_X, y: RIM_Y - 50, t: 1 });
     updateHud();
-    setTimeout(movePlayer, 350);
+    setTimeout(newAttempt, 350);
   }
   if (ball.y > H + BALL_R * 2 || ball.x < -BALL_R * 3 || ball.x > W + BALL_R * 3) {
-    if (!ball.scored) movePlayer();
+    if (!ball.scored) newAttempt();
   }
 }
 
 function end() {
   running = false;
-  if (score > best) { best = score; localStorage.setItem("strilecka_best", best); }
+  let best = +localStorage.getItem(bestKey()) || 0;
+  if (score > best) { best = score; localStorage.setItem(bestKey(), best); }
   $("endScore").textContent = score;
+  const hard = mode === "obrance";
   $("endTitle").textContent =
-    score >= 30 ? "Jsi z NBA? 🔥" :
-    score >= 18 ? "Solidní směna!" :
-    score >= 8 ? "Slušná rozcvička" : "Rozhodčí to viděl jinak";
-  $("endText").textContent = `Tvůj rekord: ${best} bodů. Koš za 2, za čárou 3, čistý koš +1 — trojky se vyplácejí.`;
+    score >= (hard ? 22 : 30) ? "Jsi z NBA? 🔥" :
+    score >= (hard ? 13 : 18) ? "Solidní směna!" :
+    score >= (hard ? 6 : 8) ? "Slušná rozcvička" : "Rozhodčí to viděl jinak";
+  $("endText").textContent =
+    `${hard ? "Režim s obráncem" : "Klasika"} — tvůj rekord: ${best} bodů. ` +
+    `Koš za 2, za čárou 3, čistý koš +1 — trojky se vyplácejí.`;
   $("end").classList.remove("hidden");
 }
 
 function share() {
-  const text = `Dal/a jsem ${score} bodů za minutu ve STŘÍLEČCE. Dáš víc?`;
+  const text = `Dal/a jsem ${score} bodů za minutu ve STŘÍLEČCE${mode === "obrance" ? " (s obráncem!)" : ""}. Dáš víc?`;
   if (navigator.share) navigator.share({ title: "STŘÍLEČKA", text, url: location.href }).catch(() => {});
   else { navigator.clipboard?.writeText(text + " " + location.href); alert("Zkopírováno!"); }
 }
 
-function drawPlayer() {
-  // minimalistická postavička dvoumetrového střelce s rukama nahoře
-  const x = player.x, top = FLOOR - PLAYER_H;
-  ctx.strokeStyle = "#b3a698"; ctx.lineWidth = 4; ctx.lineCap = "round";
-  ctx.beginPath(); ctx.arc(x, top + 16, 12, 0, 7); ctx.stroke();          // hlava
-  ctx.beginPath(); ctx.moveTo(x, top + 28); ctx.lineTo(x, FLOOR - 40); ctx.stroke(); // tělo
+function drawStick(x, color, handsUp, faceLeft) {
+  const top = FLOOR - PLAYER_H;
+  ctx.strokeStyle = color; ctx.lineWidth = 4; ctx.lineCap = "round";
+  ctx.beginPath(); ctx.arc(x, top + 16, 12, 0, 7); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x, top + 28); ctx.lineTo(x, FLOOR - 40); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(x, FLOOR - 40); ctx.lineTo(x - 14, FLOOR); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(x, FLOOR - 40); ctx.lineTo(x + 14, FLOOR); ctx.stroke(); // nohy
-  ctx.beginPath(); ctx.moveTo(x, top + 40); ctx.lineTo(x + 14, top - 6); ctx.stroke(); // ruce k míči
-  ctx.beginPath(); ctx.moveTo(x, top + 44); ctx.lineTo(x + 20, top + 2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x, FLOOR - 40); ctx.lineTo(x + 14, FLOOR); ctx.stroke();
+  const dir = faceLeft ? -1 : 1;
+  if (handsUp) {
+    ctx.beginPath(); ctx.moveTo(x, top + 40); ctx.lineTo(x - 8, top - 16); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, top + 40); ctx.lineTo(x + 8, top - 16); ctx.stroke();
+  } else {
+    ctx.beginPath(); ctx.moveTo(x, top + 40); ctx.lineTo(x + dir * 14, top - 6); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, top + 44); ctx.lineTo(x + dir * 20, top + 2); ctx.stroke();
+  }
 }
 
 function draw() {
@@ -222,7 +305,6 @@ function draw() {
   ctx.setTransform(s, 0, 0, s, 0, 0);
   ctx.clearRect(0, 0, W, H);
 
-  // podlaha + trojková čára (v bočním pohledu bod na zemi)
   ctx.strokeStyle = "#322a22"; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(0, FLOOR); ctx.lineTo(W, FLOOR); ctx.stroke();
   ctx.strokeStyle = "#8a7a68"; ctx.lineWidth = 3;
@@ -230,7 +312,6 @@ function draw() {
   ctx.fillStyle = "#8a7a68"; ctx.font = "700 15px sans-serif"; ctx.textAlign = "center";
   ctx.fillText("3", THREE_X - 14, FLOOR - 8);
 
-  // konstrukce koše: stojan, deska, obroučka, síťka
   const bx = HOOP_X + RIM_R + 14;
   ctx.strokeStyle = "#5a4c3d"; ctx.lineWidth = 6;
   ctx.beginPath(); ctx.moveTo(bx + 8, FLOOR); ctx.lineTo(bx + 8, RIM_Y - 60); ctx.stroke();
@@ -247,14 +328,25 @@ function draw() {
     ctx.stroke();
   }
 
-  drawPlayer();
+  // střelec
+  drawStick(player.x, "#b3a698", false, false);
 
-  // natahovací šipka: směr a síla výstřelu (dráhu letu neprozrazujeme)
+  // obránce (v režimu s obráncem): u čáry čeká, pak běží, ve výskoku ruce nahoře
+  if (mode === "obrance") {
+    const jump = defender.jumping
+      ? DEF_JUMP * Math.sin(Math.PI * Math.min(defender.jumpT / DEF_JUMP_T, 1)) : 0;
+    ctx.save();
+    ctx.translate(0, -jump);
+    drawStick(defender.x, "#d46a5e", defender.jumping, true);
+    ctx.restore();
+  }
+
+  // natahovací šipka: směr a síla (dráhu letu neprozrazujeme)
   if (aiming && !ball.flying) {
     const dx = aimStart.x - aimNow.x, dy = aimStart.y - aimNow.y;
     const len = Math.hypot(dx, dy);
     if (len > 12) {
-      const frac = Math.min(len * AIM_K, AIM_CAP) / AIM_CAP;   // 0–1 síla
+      const frac = Math.min(len * AIM_K, AIM_CAP) / AIM_CAP;
       const L = 40 + 110 * frac;
       const ux = dx / len, uy = dy / len;
       const ex = ball.x + ux * L, ey = ball.y + uy * L;
@@ -262,7 +354,6 @@ function draw() {
       ctx.lineWidth = 3 + 3 * frac;
       ctx.lineCap = "round";
       ctx.beginPath(); ctx.moveTo(ball.x, ball.y); ctx.lineTo(ex, ey); ctx.stroke();
-      // hrot šipky
       const a = Math.atan2(uy, ux);
       ctx.beginPath();
       ctx.moveTo(ex, ey);
@@ -280,7 +371,6 @@ function draw() {
   ctx.beginPath(); ctx.arc(ball.x, ball.y, BALL_R, 0, 7); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(ball.x - BALL_R, ball.y); ctx.lineTo(ball.x + BALL_R, ball.y); ctx.stroke();
 
-  // bodové popupy
   ctx.textAlign = "center";
   for (const p of popups) {
     ctx.fillStyle = `rgba(255,140,58,${p.t})`;
@@ -293,13 +383,17 @@ let last = performance.now();
 function loop(now) {
   const dt = Math.min((now - last) / 1000, 0.033);
   last = now;
-  step(dt);
+  if (player) step(dt);
   if (running) updateHud();
-  draw();
+  if (player) draw();
   requestAnimationFrame(loop);
 }
 
-fit(); restart(); requestAnimationFrame(loop);
+fit();
+player = { x: 260, targetX: 260 };
+resetDefender(); resetBallAtPlayer();
+score = 0; timeLeft = 60; running = false; started = false; popups = [];
+requestAnimationFrame(loop);
 </script>
 </body>
 </html>
