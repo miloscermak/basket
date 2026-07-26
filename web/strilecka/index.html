@@ -17,12 +17,16 @@ canvas { width:100%; display:block; background:linear-gradient(#191410,#14100d 7
 .hud { position:absolute; top:10px; left:14px; right:14px; display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; pointer-events:none; }
 .hud .t { color:var(--dim); }
 .hud b { color:var(--accent); font-variant-numeric:tabular-nums; }
-.overlay { position:absolute; inset:0; background:rgba(20,16,13,.9); border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; }
-.overlay h2 { font-size:1.5rem; margin-bottom:6px; }
-.overlay .big { font-size:3.2rem; font-weight:900; color:var(--accent); }
+.overlay { position:absolute; top:0; left:0; right:0; min-height:100%; background:rgba(20,16,13,.95); border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:18px; z-index:2; }
+.overlay h2 { font-size:1.4rem; margin-bottom:4px; }
+.overlay .big { font-size:2.6rem; font-weight:900; color:var(--accent); }
 .overlay p { color:var(--dim); margin:8px 0 16px; font-size:.92rem; max-width:420px; }
 .overlay button { padding:13px 22px; border:none; border-radius:12px; background:var(--accent); color:#1a100e; font-size:1.02rem; font-weight:800; cursor:pointer; margin:4px; }
 .overlay button.ghost { background:none; border:1px solid var(--line); color:var(--dim); }
+.stats { display:grid; grid-template-columns:auto auto; gap:4px 16px; margin:10px 0 4px;
+         font-size:.9rem; text-align:left; }
+.stats span { color:var(--dim); }
+.stats b { color:var(--ink); text-align:right; font-variant-numeric:tabular-nums; }
 footer { color:var(--dim); font-size:.72rem; text-align:center; padding:10px 16px 16px; }
 footer a { color:var(--dim); }
 .hidden { display:none !important; }
@@ -49,6 +53,7 @@ footer a { color:var(--dim); }
     <div class="overlay hidden" id="end">
       <div class="big" id="endScore">0</div>
       <h2 id="endTitle"></h2>
+      <div class="stats" id="endStats"></div>
       <p id="endText"></p>
       <div>
         <button onclick="restart()">Hrát znovu</button>
@@ -126,8 +131,10 @@ function start(m) {
   restart();
 }
 
+let stats;
 function restart() {
   score = 0; timeLeft = 60; running = true; started = false; popups = [];
+  stats = { shots: 0, made2: 0, made3: 0, clean: 0, miss: 0, air: 0, blocks: 0 };
   player = { x: 260, targetX: 260 };
   newAttempt();
   $("end").classList.add("hidden");
@@ -170,6 +177,7 @@ window.addEventListener("pointerup", () => {
   ball.is3 = ball.x < THREE_X;
   ball.flying = true;
   started = true;
+  stats.shots += 1;
   if (mode === "obrance" && defender.active) { defender.jumping = true; defender.jumpT = 0; }
 });
 
@@ -257,13 +265,22 @@ function step(dt) {
     ball.scored = true;
     const pts = (ball.is3 ? 3 : 2) + (ball.touched ? 0 : 1);
     score += pts;
+    if (ball.is3) stats.made3 += 1; else stats.made2 += 1;
+    if (!ball.touched) stats.clean += 1;
     popups.push({ text: ball.touched ? `+${pts}` : `ČISTÝ! +${pts}`,
                   x: HOOP_X, y: RIM_Y - 50, t: 1 });
     updateHud();
     setTimeout(newAttempt, 350);
   }
   if (ball.y > H + BALL_R * 2 || ball.x < -BALL_R * 3 || ball.x > W + BALL_R * 3) {
-    if (!ball.scored) newAttempt();
+    if (!ball.scored) {
+      if (ball.blocked) stats.blocks += 1;
+      else {
+        stats.miss += 1;
+        if (!ball.touched) stats.air += 1;   // úplně mimo konstrukci
+      }
+      newAttempt();
+    }
   }
 }
 
@@ -272,6 +289,18 @@ function end() {
   let best = +localStorage.getItem(bestKey()) || 0;
   if (score > best) { best = score; localStorage.setItem(bestKey(), best); }
   $("endScore").textContent = score;
+  const rows = [
+    ["Střel celkem", stats.shots],
+    ["Koše za 2 body", stats.made2],
+    ["Trojky", stats.made3],
+    ["Čisté koše (+1)", stats.clean],
+    ["Vedle", stats.miss],
+    ["… z toho zcela mimo", stats.air],
+  ];
+  if (mode === "obrance") rows.push(["Zblokováno 🚫", stats.blocks]);
+  $("endStats").innerHTML = rows
+    .map(([l, v]) => `<span>${l}</span><b>${v}</b>`)
+    .join("");
   const hard = mode === "obrance";
   $("endTitle").textContent =
     score >= (hard ? 22 : 30) ? "Jsi z NBA? 🔥" :
