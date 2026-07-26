@@ -23,6 +23,8 @@ canvas { width:100%; display:block; background:linear-gradient(#191410,#14100d 7
 .overlay p { color:var(--dim); margin:8px 0 16px; font-size:.92rem; max-width:420px; }
 .overlay button { padding:13px 22px; border:none; border-radius:12px; background:var(--accent); color:#1a100e; font-size:1.02rem; font-weight:800; cursor:pointer; margin:4px; }
 .overlay button.ghost { background:none; border:1px solid var(--line); color:var(--dim); }
+.modes { display:flex; gap:10px; justify-content:center; width:100%; max-width:360px; }
+.modes button { flex:1; margin:0; }
 .stats { display:grid; grid-template-columns:auto auto; gap:4px 16px; margin:10px 0 4px;
          font-size:.9rem; text-align:left; }
 .stats span { color:var(--dim); }
@@ -45,10 +47,10 @@ footer a { color:var(--dim); }
       <h2>Natáhni a pusť 🏀</h2>
       <p>Táhni od míče dozadu jako prakem a pusť. Koš = <b>2 body</b>, zpoza trojkové čáry <b>3</b>,
          čistý koš bez obroučky <b>+1</b>. Máš 60 vteřin od prvního výstřelu.</p>
-      <p><b>S obráncem:</b> místo střely si vybíráš ťuknutím na palubovku — ale jakmile začneš mířit,
-         od základní čáry vybíhá obránce. Kdo dlouho míří, tomu střelu zblokuje.</p>
-      <div>
-        <button onclick="start('klasika')">Klasika</button>
+      <p><b>S obráncem:</b> mezi tebou a košem číhá obránce — jakmile začneš mířit, vybíhá.
+         Kdo dlouho míří, tomu střelu zblokuje.</p>
+      <div class="modes">
+        <button onclick="start('klasika')">Trénink</button>
         <button onclick="start('obrance')">S obráncem 😈</button>
       </div>
     </div>
@@ -65,8 +67,8 @@ footer a { color:var(--dim); }
     </div>
   </div>
   <p class="legend"><b>Návod:</b> táhni od míče dozadu a pusť — šipka ukazuje směr a sílu střely
-     (u stropu síly se objeví MAX). V režimu s obráncem si ťuknutím na palubovku vybíráš místo
-     střelby. Máš minutu od prvního výstřelu — a pozor na bloky.</p>
+     (u stropu síly se objeví MAX). Po každé střele se přesuneš na nové místo.
+     Máš minutu od prvního výstřelu — a pozor na bloky.</p>
 </main>
 <footer>Součást webu <a href="../">Česká basketbalová sezóna v datech</a> · <a href="../hra/">zkus i kvíz DO JEDNADVACETI</a></footer>
 
@@ -124,7 +126,8 @@ function resetBallAtPlayer() {
 }
 
 function newAttempt() {
-  if (mode === "klasika") player.x = 70 + Math.random() * 450;
+  // v obou režimech nová náhodná pozice — lepší dynamika, srovnatelná skóre
+  player.x = 70 + Math.random() * 450;
   player.targetX = player.x;
   resetBallAtPlayer();
   spawnDefender(player.x);
@@ -158,16 +161,9 @@ function updateHud() {
 
 canvas.addEventListener("pointerdown", (e) => {
   if (!running || ball.flying) return;
-  const p = pt(e);
-  // v režimu s obráncem: ťuknutí daleko od míče = přesun na nové místo
-  if (mode === "obrance" && Math.hypot(p.x - ball.x, p.y - ball.y) > 75) {
-    player.targetX = Math.max(55, Math.min(HOOP_X - 80, p.x));
-    spawnDefender(player.targetX);   // nové místo = obránce se přeskupí
-    return;
-  }
   canvas.setPointerCapture(e.pointerId);
   aiming = true;
-  aimStart = p; aimNow = p;
+  aimStart = pt(e); aimNow = aimStart;
   if (mode === "obrance") defender.active = true;   // obránce vybíhá!
 });
 canvas.addEventListener("pointermove", (e) => { if (aiming) aimNow = pt(e); });
@@ -312,7 +308,7 @@ function end() {
     score >= (hard ? 13 : 18) ? "Solidní směna!" :
     score >= (hard ? 6 : 8) ? "Slušná rozcvička" : "Rozhodčí to viděl jinak";
   $("endText").textContent =
-    `${hard ? "Režim s obráncem" : "Klasika"} — tvůj rekord: ${best} bodů. ` +
+    `${hard ? "Režim s obráncem" : "Trénink"} — tvůj rekord: ${best} bodů. ` +
     `Koš za 2, za čárou 3, čistý koš +1 — trojky se vyplácejí.`;
   $("end").classList.remove("hidden");
 }
