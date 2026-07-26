@@ -120,6 +120,12 @@ td .sub { display: block; color: var(--ink-dim); font-size: .78rem; }
 .curio b { font-size: 1.5rem; color: var(--accent); }
 .curio p { color: var(--ink-dim); font-size: .88rem; margin-top: 6px; }
 
+/* ---------- slovníček ---------- */
+.glossary { display:grid; grid-template-columns:minmax(150px, auto) 1fr; gap:8px 18px; }
+.glossary dt { color:var(--accent); font-weight:700; font-size:.92rem; }
+.glossary dd { color:var(--ink-dim); font-size:.92rem; }
+@media (max-width:600px) { .glossary { grid-template-columns:1fr; gap:2px; } .glossary dd { margin-bottom:10px; } }
+
 /* ---------- placeholder sekce ---------- */
 .ghost { background: var(--bg-ghost); border-style: dashed; }
 .ghost p { color: var(--ink-dim); font-size: .88rem; }

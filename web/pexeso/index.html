@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BASKETBALOVÉ PEXESO — anglicky ↔ česky</title>
+<style>
+:root { --bg:#14100d; --card:#1e1813; --ink:#f3ece4; --dim:#b3a698; --accent:#ff8c3a; --line:#322a22; --ok:#6fca6f; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { height:100%; }
+body { background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; display:flex; flex-direction:column; align-items:center; }
+main { width:100%; max-width:560px; padding:16px 12px 24px; flex:1; }
+.kicker { color:var(--accent); text-transform:uppercase; letter-spacing:.14em; font-size:.7rem; font-weight:700; text-align:center; }
+h1 { text-align:center; font-size:1.5rem; margin:4px 0 6px; letter-spacing:-.01em; }
+.sub { color:var(--dim); text-align:center; font-size:.9rem; margin-bottom:14px; }
+.bar { display:flex; justify-content:space-between; font-weight:800; margin-bottom:12px; font-size:.95rem; }
+.bar span { color:var(--dim); font-weight:400; }
+.bar b { color:var(--accent); font-variant-numeric:tabular-nums; }
+.grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+.karta {
+  aspect-ratio: 3/2.1;
+  perspective: 600px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.karta .inner {
+  position:relative; width:100%; height:100%;
+  transform-style:preserve-3d; transition:transform .35s;
+}
+.karta.otocena .inner, .karta.hotova .inner { transform:rotateY(180deg); }
+.karta .rub, .karta .lic {
+  position:absolute; inset:0; backface-visibility:hidden;
+  border-radius:10px; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:6px; font-weight:700; font-size:.82rem; line-height:1.2;
+}
+.karta .rub { background:var(--card); border:1px solid var(--line); color:var(--accent); font-size:1.4rem; }
+.karta .lic { background:#2a221a; border:1px solid var(--line); transform:rotateY(180deg); }
+.karta.hotova .lic { border-color:var(--ok); color:var(--ok); }
+.fakt {
+  min-height:52px; margin-top:14px; padding:12px 14px;
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  color:var(--dim); font-size:.88rem; line-height:1.45;
+}
+.fakt b { color:var(--accent); }
+.overlay { position:fixed; inset:0; background:rgba(20,16,13,.93); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; z-index:5; }
+.overlay .big { font-size:2.6rem; font-weight:900; color:var(--accent); }
+.overlay h2 { margin:6px 0; }
+.overlay p { color:var(--dim); margin-bottom:16px; max-width:380px; }
+.overlay button { padding:13px 24px; border:none; border-radius:12px; background:var(--accent); color:#1a100e; font-size:1.02rem; font-weight:800; cursor:pointer; margin:4px; }
+.overlay button.ghost { background:none; border:1px solid var(--line); color:var(--dim); }
+footer { color:var(--dim); font-size:.72rem; text-align:center; padding:0 16px 18px; max-width:560px; }
+footer a { color:var(--dim); }
+.hidden { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Basketbalová angličtina hrou</p>
+  <h1>PEXESO</h1>
+  <p class="sub">Najdi dvojice: anglický termín + český překlad.</p>
+  <div class="bar"><div><span>nalezeno&nbsp;</span><b id="found">0</b><span>&nbsp;/&nbsp;8</span></div><div><span>tahů&nbsp;</span><b id="moves">0</b></div></div>
+  <div class="grid" id="grid"></div>
+  <div class="fakt" id="fakt">Otoč dvě karty. Když k anglickému termínu najdeš český protějšek, dvojice zůstane otočená.</div>
+</main>
+<div class="overlay hidden" id="end">
+  <div class="big" id="endMoves"></div>
+  <h2>Složeno! 🏀</h2>
+  <p id="endText"></p>
+  <div>
+    <button onclick="location.reload()">Hrát znovu</button>
+    <button class="ghost" onclick="share()">Vyzvat souseda 📣</button>
+  </div>
+</div>
+<footer>
+  <p>Součást webu <a href="../">Česká basketbalová sezóna v datech</a> ·
+     další hry: <a href="../hra/">kvíz DO JEDNADVACETI</a> a <a href="../strilecka/">STŘÍLEČKA</a></p>
+  <p>Chceš víc pojmů? Přes 400 hesel má <a href="https://www.bkskutec.cz/basketbalovy-slovnik/" target="_blank" rel="noopener">basketbalový slovník BK Skuteč</a>.</p>
+</footer>
+
+<script>
+// Dvojice: anglický termín ↔ český překlad. U některých je bonusový fakt
+// z naší databáze sezóny 2025/26, který se ukáže po složení dvojice.
+const PAIRS = [
+  { en: "rebound", cz: "doskok" },
+  { en: "assist", cz: "asistence",
+    fakt: "Nejvíc asistencí na zápas v NBL měl letos Ondřej Sehnal — 6,6." },
+  { en: "steal", cz: "zisk míče" },
+  { en: "turnover", cz: "ztráta míče" },
+  { en: "dunk", cz: "smeč",
+    fakt: "Králem smečí sezóny je Z. Key — 75 smečí. Sedmnáctiletý Marek Houška jich dal 33." },
+  { en: "layup", cz: "dvojtakt" },
+  { en: "three-pointer", cz: "trojka",
+    fakt: "V NBL letí za tři už 42,7 % všech střel z pole. Trojková revoluce dorazila." },
+  { en: "free throw", cz: "trestný hod" },
+  { en: "overtime", cz: "prodloužení",
+    fakt: "Letos se v Česku hrálo 28 prodloužení — jediné dvojité vyhrálo USK Praha B 95:94." },
+  { en: "jump ball", cz: "rozskok" },
+  { en: "travelling", cz: "kroky" },
+  { en: "fast break", cz: "rychlý protiútok" },
+  { en: "zone defense", cz: "zónová obrana" },
+  { en: "pick", cz: "clona" },
+  { en: "buzzer beater", cz: "koš se sirénou",
+    fakt: "Letos rozhodl jediný bod 388 zápasů — dramat se sirénou bylo dost." },
+  { en: "swish", cz: "čistý koš",
+    fakt: "Ve STŘÍLEČCE je čistý koš za bod navíc. Teď už víš, jak se řekne anglicky." },
+];
+
+const N = 8; // dvojic ve hře (16 karet, mřížka 4×4)
+const $ = (id) => document.getElementById(id);
+let first = null, lock = false, found = 0, moves = 0;
+
+// vybrat N náhodných dvojic a zamíchat karty
+const pool = [...PAIRS].sort(() => Math.random() - 0.5).slice(0, N);
+const cards = pool
+  .flatMap((p, i) => [{ id: i, text: p.en, lang: "EN" }, { id: i, text: p.cz, lang: "CZ" }])
+  .sort(() => Math.random() - 0.5);
+
+$("grid").innerHTML = cards
+  .map((c, i) => `
+    <div class="karta" data-i="${i}" data-id="${c.id}">
+      <div class="inner">
+        <div class="rub">🏀</div>
+        <div class="lic">${c.text}</div>
+      </div>
+    </div>`)
+  .join("");
+
+document.querySelectorAll(".karta").forEach((el) => el.addEventListener("click", () => flip(el)));
+
+function flip(el) {
+  if (lock || el.classList.contains("otocena") || el.classList.contains("hotova")) return;
+  el.classList.add("otocena");
+  if (!first) { first = el; return; }
+
+  moves += 1;
+  $("moves").textContent = moves;
+  const a = first, b = el;
+  first = null;
+
+  if (a.dataset.id === b.dataset.id) {
+    a.classList.add("hotova"); b.classList.add("hotova");
+    a.classList.remove("otocena"); b.classList.remove("otocena");
+    found += 1;
+    $("found").textContent = found;
+    const pair = pool[+a.dataset.id];
+    $("fakt").innerHTML = `<b>${pair.en} = ${pair.cz}</b>` +
+      (pair.fakt ? ` · ${pair.fakt}` : "");
+    if (found === N) setTimeout(finish, 700);
+  } else {
+    lock = true;
+    setTimeout(() => {
+      a.classList.remove("otocena");
+      b.classList.remove("otocena");
+      lock = false;
+    }, 950);
+  }
+}
+
+function finish() {
+  $("endMoves").textContent = moves + " tahů";
+  $("endText").textContent =
+    moves <= 12 ? "Fotografická paměť a basketbalová angličtina — kombinace šampiona."
+    : moves <= 18 ? "Solidní výkon! Trenéři by byli spokojení."
+    : "Hlavně že je to složené. Revanš?";
+  $("end").classList.remove("hidden");
+}
+
+function share() {
+  const text = `Složil/a jsem basketbalové PEXESO na ${moves} tahů. Dáš míň?`;
+  if (navigator.share) navigator.share({ title: "Basketbalové pexeso", text, url: location.href }).catch(() => {});
+  else { navigator.clipboard?.writeText(text + " " + location.href); alert("Zkopírováno!"); }
+}
+</script>
+</body>
+</html>
