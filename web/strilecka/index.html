@@ -38,7 +38,7 @@ footer a { color:var(--dim); }
     <div class="overlay" id="intro">
       <h2>Natáhni a pusť 🏀</h2>
       <p>Táhni prstem (nebo myší) od míče dozadu jako prakem a pusť.
-         Koš = <b>2 body</b>, zpoza trojkové čáry <b>3</b>, čistý švih bez obroučky <b>+1</b>.
+         Koš = <b>2 body</b>, zpoza trojkové čáry <b>3</b>, čistý koš bez obroučky <b>+1</b>.
          Po každé střele se přesuneš. Máš 60 vteřin — čas běží od prvního výstřelu.</p>
       <button onclick="hideIntro()">Jdu na to</button>
     </div>
@@ -177,7 +177,7 @@ function step(dt) {
     ball.scored = true;
     const pts = (ball.is3 ? 3 : 2) + (ball.touched ? 0 : 1);
     score += pts;
-    popups.push({ text: ball.touched ? `+${pts}` : `ŠVIH! +${pts}`,
+    popups.push({ text: ball.touched ? `+${pts}` : `ČISTÝ! +${pts}`,
                   x: HOOP_X, y: RIM_Y - 50, t: 1 });
     updateHud();
     setTimeout(movePlayer, 350);
@@ -195,7 +195,7 @@ function end() {
     score >= 30 ? "Jsi z NBA? 🔥" :
     score >= 18 ? "Solidní směna!" :
     score >= 8 ? "Slušná rozcvička" : "Rozhodčí to viděl jinak";
-  $("endText").textContent = `Tvůj rekord: ${best} bodů. Koš za 2, za čárou 3, čistý švih +1 — trojky se vyplácejí.`;
+  $("endText").textContent = `Tvůj rekord: ${best} bodů. Koš za 2, za čárou 3, čistý koš +1 — trojky se vyplácejí.`;
   $("end").classList.remove("hidden");
 }
 
