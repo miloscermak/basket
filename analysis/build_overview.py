@@ -43,8 +43,15 @@ def main():
     o["prumer_bodu"] = r["avg_pts"]
     o["domaci_vyhry_podil"] = round(r["home_win"], 4)
     o["soutezi"] = con.execute("SELECT COUNT(*) FROM competitions").fetchone()[0]
-    o["hracu_se_statistikami"] = con.execute(
-        "SELECT COUNT(DISTINCT player_id) FROM player_group_stats").fetchone()[0]
+    # sjednocení hráčů se sezónními statistikami (games>0) a hráčů z boxscores
+    # (druzí zachytí i minibasket, kde se individuální stat. stránky negenerují,
+    # ale hráč v zápase prokazatelně nastoupil) — jinak přijdeme o ~1300 lidí
+    o["hracu_se_statistikami"] = con.execute("""
+        SELECT COUNT(DISTINCT player_id) FROM (
+            SELECT player_id FROM player_group_stats
+            UNION
+            SELECT player_id FROM boxscores
+        )""").fetchone()[0]
     o["hal"] = con.execute(
         f"SELECT COUNT(DISTINCT venue) FROM matches WHERE venue IS NOT NULL AND {played}").fetchone()[0]
 
