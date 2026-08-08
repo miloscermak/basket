@@ -131,6 +131,46 @@ td .sub { display: block; color: var(--ink-dim); font-size: .78rem; }
 .ghost p { color: var(--ink-dim); font-size: .88rem; }
 .pending h2::after { content: " ⏳"; }
 
+/* ---------- banner turnaje NA JEDNOHO ---------- */
+.turnaj-banner {
+  display: grid;
+  grid-template-columns: minmax(200px, 320px) 1fr;
+  gap: 24px;
+  align-items: center;
+  background: linear-gradient(120deg, var(--bg-card), #241a12);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.turnaj-banner:hover { background: linear-gradient(120deg, #241c14, #2a1e13); }
+.turnaj-banner svg { width: 100%; height: auto; display: block; }
+.turnaj-kicker {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .72rem;
+  font-weight: 700;
+}
+.turnaj-text h2 { font-size: 1.7rem; letter-spacing: -.01em; margin: 4px 0 8px; }
+.turnaj-text p { color: var(--ink-dim); max-width: 460px; }
+.turnaj-cta {
+  display: inline-block;
+  margin-top: 14px;
+  background: var(--accent);
+  color: #1a100e;
+  font-weight: 800;
+  padding: 10px 18px;
+  border-radius: 10px;
+}
+@media (max-width: 700px) {
+  .turnaj-banner { grid-template-columns: 1fr; gap: 10px; }
+  .turnaj-banner svg { max-width: 300px; margin: 0 auto; }
+  .turnaj-text { text-align: center; }
+  .turnaj-text p { margin: 0 auto; }
+}
+
 /* ---------- vyhledávání ---------- */
 #search-input {
   width: 100%;
